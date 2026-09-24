@@ -11,6 +11,10 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+env:
+  BBS_SIGNATURES_MODE: WASM
+  CI: true
+
 jobs:
   quality:
     name: Code Quality & Verification
@@ -72,6 +76,9 @@ jobs:
 
       - name: Setup Circuit Proving & Verification Artifacts
         run: pnpm run circuits:setup
+
+      - name: Build Packages (TypeScript)
+        run: pnpm run build
 
       - name: Run Test Suite (Vitest)
         run: pnpm test
