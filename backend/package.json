@@ -1,6 +1,7 @@
 {
   "name": "@pramana/backend",
   "version": "0.1.0",
+  "type": "module",
   "description": "Pramāṇa Protocol Backend Infrastructure (Fastify + TypeScript)",
   "main": "./dist/server.js",
   "types": "./dist/server.d.ts",
