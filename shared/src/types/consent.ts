@@ -19,6 +19,25 @@ export interface CitizenAuthorization {
   readonly authorizedAt: string; // ISO 8601 UTC
 }
 
+/**
+ * Structured consent information presented to the citizen:
+ * - WHO: Verifier identity and reputation
+ * - WHAT: Specific predicates and requested disclosures
+ * - NOT SHARED: Explicitly protected attributes kept completely private
+ */
+export interface ConsentSummary {
+  readonly who: {
+    readonly verifierDid: string;
+    readonly verifierName: string;
+  };
+  readonly what: {
+    readonly purpose: string;
+    readonly predicates: readonly Predicate[];
+    readonly disclosedAttributes: readonly string[];
+  };
+  readonly notShared: readonly string[];
+}
+
 export interface ConsentContract {
   readonly id: string; // UUIDv4
   readonly requestContractId: string;
@@ -28,6 +47,7 @@ export interface ConsentContract {
   readonly context: string;
   readonly template: TemplateBinding;
   readonly authorization: CitizenAuthorization;
+  readonly summary?: ConsentSummary | undefined;
   readonly expiresAt: string; // ISO 8601 UTC
   readonly citizenSignature: string; // Cryptographic signature of holder key sealing consent
 }

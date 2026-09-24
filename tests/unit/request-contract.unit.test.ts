@@ -19,7 +19,7 @@ describe('Unit Tests: RequestContract Boundary Validation', () => {
     predicates: [
       {
         attributeId: 'urn:pramana:attr:civil:age',
-        operator: 'GTE',
+        operator: 'LTE',
         constant: 18,
       },
     ],

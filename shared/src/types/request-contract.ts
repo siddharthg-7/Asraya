@@ -55,7 +55,17 @@ export interface RequestContract {
   /**
    * Specific attributes requested for plain selective disclosure (must be strictly minimized)
    */
-  readonly revealRequirements: readonly string[];
+  readonly revealRequirements?: readonly string[] | undefined;
+
+  /**
+   * Canonical alias for revealRequirements per specification
+   */
+  readonly disclose?: readonly string[] | undefined;
+
+  /**
+   * Canonical alias for revealRequirements per specification
+   */
+  readonly disclosures?: readonly string[] | undefined;
 
   /**
    * Strict retention policy commitment by the verifier
@@ -78,6 +88,11 @@ export interface RequestContract {
   readonly expiresAt: string;
 
   /**
+   * Canonical alias for expiresAt per specification
+   */
+  readonly expiry?: string | undefined;
+
+  /**
    * Ephemeral public key of the verifier for end-to-end payload encapsulation (HPKE)
    */
   readonly verifierEphemeralKey?: string | undefined;
@@ -86,6 +101,11 @@ export interface RequestContract {
    * Cryptographic proof of verifier licence issued by the trust registry
    */
   readonly verifierLicenceProof?: VerifierLicenceProof | undefined;
+
+  /**
+   * Canonical alias for verifierLicenceProof per specification
+   */
+  readonly licence?: VerifierLicenceProof | string | undefined;
 
   /**
    * Verifier digital signature sealing the request contract

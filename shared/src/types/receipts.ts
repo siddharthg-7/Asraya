@@ -25,3 +25,19 @@ export interface MinimalAuditLogEntry {
   readonly nullifierHash: string;
   readonly receiptSignature: string;
 }
+
+/**
+ * Minimal verifier outcome returned to citizen wallet.
+ * Strictly preserves data minimization: contains zero raw citizen attributes unless explicitly disclosed.
+ */
+export interface VerificationResult {
+  readonly sessionId: string;
+  readonly contractId: string;
+  readonly verifierDid: string;
+  readonly verdict: VerificationVerdict;
+  readonly verifiedAt: string; // ISO 8601 UTC
+  readonly receiptHash: string; // SHA-256 digest of audit receipt
+  readonly nullifierHash: string; // Context-scoped duplicate detection token
+  readonly disclosedAttributes?: Readonly<Record<string, string | number | boolean>> | undefined;
+  readonly signature: string; // Verifier signature
+}

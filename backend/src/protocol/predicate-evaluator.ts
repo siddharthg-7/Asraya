@@ -33,14 +33,6 @@ export class PredicateEvaluator {
         return (
           typeof claimValue === 'number' && typeof constant === 'number' && claimValue <= constant
         );
-      case 'GT':
-        return (
-          typeof claimValue === 'number' && typeof constant === 'number' && claimValue > constant
-        );
-      case 'GTE':
-        return (
-          typeof claimValue === 'number' && typeof constant === 'number' && claimValue >= constant
-        );
       case 'IN':
         if (Array.isArray(constant)) {
           return constant.includes(claimValue as never);

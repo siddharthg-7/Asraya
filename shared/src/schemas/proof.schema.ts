@@ -3,7 +3,7 @@
  * Pramāṇa Protocol - Phase 1 Foundation
  */
 
-import { ProofEnvelope, ProofTier } from '../types/proofs.js';
+import { ProofEnvelope, ProofTier, VerificationRequest } from '../types/proofs.js';
 import { ERROR_CODES, PramanaError } from '../constants/errors.js';
 
 const VALID_PROOF_TIERS: readonly ProofTier[] = ['TIER_A_BBS', 'TIER_B_GROTH16'];
@@ -92,5 +92,43 @@ export function validateProofEnvelope(input: unknown): ProofEnvelope {
     holderBindingSignature: record['holderBindingSignature'],
     createdAt:
       typeof record['createdAt'] === 'string' ? record['createdAt'] : new Date().toISOString(),
+  };
+}
+
+export function validateVerificationRequest(input: unknown): VerificationRequest {
+  if (typeof input !== 'object' || input === null) {
+    throw new PramanaError(
+      ERROR_CODES.INVALID_REQUEST,
+      'VerificationRequest must be a non-null object',
+    );
+  }
+
+  const record = input as Record<string, unknown>;
+
+  if (typeof record['contractId'] !== 'string' || record['contractId'].trim() === '') {
+    throw new PramanaError(
+      ERROR_CODES.INVALID_REQUEST,
+      'VerificationRequest requires a non-empty contractId',
+    );
+  }
+
+  if (
+    !('proofEnvelope' in record) ||
+    record['proofEnvelope'] === null ||
+    record['proofEnvelope'] === undefined
+  ) {
+    throw new PramanaError(
+      ERROR_CODES.INVALID_REQUEST,
+      'VerificationRequest requires proofEnvelope',
+    );
+  }
+
+  const proofEnvelope = validateProofEnvelope(record['proofEnvelope']);
+
+  return {
+    contractId: record['contractId'],
+    proofEnvelope,
+    clientTimestamp:
+      typeof record['clientTimestamp'] === 'string' ? record['clientTimestamp'] : undefined,
   };
 }

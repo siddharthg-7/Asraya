@@ -1,15 +1,16 @@
 /**
  * @fileoverview Bounded Predicate Grammar Specification
- * Pramāṇa Protocol - Phase 1 Foundation
+ * Pramāṇa Protocol - Phase 1 Foundation / Shared Contract Lock
  *
- * Rules:
- * - Grammatical form: attr {LT, LTE, EQ, GTE, GT, IN} constant
+ * Authoritative Canonical Predicate Grammar:
+ * - Grammatical form: attr {EQ, LT, LTE, IN<=8} constant
+ * - Unsupported operators (GT, GTE, NEQ) are strictly rejected per specification
  * - IN operator is bounded to a maximum of 8 set elements (IN<=8)
  * - Multiple predicates are joined strictly using logical AND
- * - No user-defined arbitrary executable expressions or script execution
+ * - No disjunction (OR), arbitrary script execution, or expression trees
  */
 
-export type PredicateOperator = 'LT' | 'LTE' | 'EQ' | 'GTE' | 'GT' | 'IN';
+export type PredicateOperator = 'EQ' | 'LT' | 'LTE' | 'IN';
 
 export type PredicateConstant = string | number | boolean;
 
@@ -17,7 +18,7 @@ export interface SinglePredicate {
   readonly attributeId: string;
   readonly operator: PredicateOperator;
   /**
-   * For scalar operators (LT, LTE, EQ, GTE, GT): a single primitive constant.
+   * For scalar operators (EQ, LT, LTE): a single primitive constant.
    * For set operator (IN): a bounded array of constants with length <= 8.
    */
   readonly constant: PredicateConstant | readonly PredicateConstant[];

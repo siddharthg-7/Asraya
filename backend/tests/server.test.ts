@@ -31,7 +31,7 @@ describe('Backend Server Routes Test', () => {
         predicates: [
           {
             attributeId: 'urn:pramana:attr:civil:age',
-            operator: 'GTE',
+            operator: 'LTE',
             constant: 18,
           },
         ],

@@ -14,7 +14,7 @@ describe('Integration Tests: Contract Formulation to Consent Prompt', () => {
       predicates: [
         {
           attributeId: 'urn:pramana:attr:civil:age',
-          operator: 'GTE',
+          operator: 'LTE',
           constant: 21,
         },
       ],

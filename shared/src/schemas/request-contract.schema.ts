@@ -4,6 +4,7 @@
  */
 
 import { RequestContract, DataRetentionPolicy } from '../types/request-contract.js';
+import { isKnownCanonicalAttribute } from '../types/attributes.js';
 import { validatePredicate } from './predicate.schema.js';
 import { ERROR_CODES, PramanaError } from '../constants/errors.js';
 import { PROTOCOL_VERSION } from '../constants/protocol-version.js';
@@ -79,14 +80,34 @@ export function validateRequestContract(input: unknown): RequestContract {
 
   const predicates = record['predicates'].map((p) => validatePredicate(p));
 
-  if (!Array.isArray(record['revealRequirements'])) {
+  // Validate disclosures (revealRequirements / disclose / disclosures)
+  const rawDisclosures =
+    record['disclose'] ?? record['revealRequirements'] ?? record['disclosures'] ?? [];
+  if (!Array.isArray(rawDisclosures)) {
     throw new PramanaError(
       ERROR_CODES.INVALID_REQUEST,
-      'RequestContract revealRequirements must be an array',
+      'Malformed disclosure: Disclosures must be an array of canonical attribute strings',
     );
   }
 
-  const retention = record['retention'] as DataRetentionPolicy;
+  for (const attr of rawDisclosures) {
+    if (typeof attr !== 'string' || attr.trim() === '') {
+      throw new PramanaError(
+        ERROR_CODES.INVALID_REQUEST,
+        'Malformed disclosure: Attribute name must be a non-empty string',
+      );
+    }
+    if (!isKnownCanonicalAttribute(attr)) {
+      throw new PramanaError(
+        ERROR_CODES.ATTRIBUTE_NOT_SUPPORTED,
+        `Malformed disclosure: Unknown or unsupported attribute '${attr}'`,
+      );
+    }
+  }
+
+  const disclosuresList = rawDisclosures as readonly string[];
+
+  const retention = (record['retention'] as DataRetentionPolicy) ?? 'AUDIT_RECEIPT_ONLY_ZERO_PII';
   if (!VALID_RETENTION_POLICIES.includes(retention)) {
     throw new PramanaError(
       ERROR_CODES.INVALID_REQUEST,
@@ -101,8 +122,18 @@ export function validateRequestContract(input: unknown): RequestContract {
     );
   }
 
-  const issuedAt = Date.parse(String(record['issuedAt']));
-  const expiresAt = Date.parse(String(record['expiresAt']));
+  const rawIssued = record['issuedAt'] ?? record['issued_at'] ?? new Date().toISOString();
+  const rawExpires = record['expiresAt'] ?? record['expiry'] ?? record['expires_at'];
+
+  if (!rawExpires) {
+    throw new PramanaError(
+      ERROR_CODES.INVALID_REQUEST,
+      'RequestContract must specify expiresAt / expiry',
+    );
+  }
+
+  const issuedAt = Date.parse(String(rawIssued));
+  const expiresAt = Date.parse(String(rawExpires));
 
   if (Number.isNaN(issuedAt) || Number.isNaN(expiresAt)) {
     throw new PramanaError(
@@ -130,11 +161,14 @@ export function validateRequestContract(input: unknown): RequestContract {
     purpose: record['purpose'],
     context: record['context'],
     predicates,
-    revealRequirements: record['revealRequirements'] as readonly string[],
+    revealRequirements: disclosuresList,
+    disclose: disclosuresList,
+    disclosures: disclosuresList,
     retention,
     nonce: record['nonce'],
     issuedAt: new Date(issuedAt).toISOString(),
     expiresAt: new Date(expiresAt).toISOString(),
+    expiry: new Date(expiresAt).toISOString(),
     verifierEphemeralKey:
       typeof record['verifierEphemeralKey'] === 'string'
         ? record['verifierEphemeralKey']

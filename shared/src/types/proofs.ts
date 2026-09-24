@@ -48,3 +48,12 @@ export interface ProofEnvelope {
   readonly holderBindingSignature: string;
   readonly createdAt: string; // ISO 8601 UTC
 }
+
+/**
+ * Protocol payload transmitted from citizen wallet to verifier endpoint
+ */
+export interface VerificationRequest {
+  readonly contractId: string;
+  readonly proofEnvelope: ProofEnvelope;
+  readonly clientTimestamp?: string | undefined;
+}

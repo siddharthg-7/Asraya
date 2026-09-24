@@ -22,13 +22,13 @@ All request contracts must conform to the `@pramana/schemas` definition and cont
     {
       "schema_id": "urn:pramana:schema:citizen:identity:v1",
       "attribute": "age",
-      "operator": "GTE",
-      "value": 21
+      "operator": "LTE",
+      "value": 65
     },
     {
       "schema_id": "urn:pramana:schema:financial:tax:v1",
       "attribute": "annual_gross_income",
-      "operator": "GTE",
+      "operator": "LTE",
       "value": 500000
     }
   ],
@@ -52,14 +52,14 @@ All request contracts must conform to the `@pramana/schemas` definition and cont
 1. **`contract_id`**: A globally unique UUID identifying this verification session.
 2. **`verifier_did`**: The Decentralized Identifier of the verifier, resolvable in the Trust Registry.
 3. **`purpose_code`**: Standardized regulatory code registered in Tier 1. The wallet uses this code to map to verified, trusted localized consent templates.
-4. **`predicates`**: An array of assertions evaluated via Zero-Knowledge / BBS proofs. Supported operators:
-   - `GTE`: Greater than or equal to
-   - `LTE`: Less than or equal to
-   - `GT`: Greater than
-   - `LT`: Less than
+4. **`predicates`**: An array of assertions evaluated via Zero-Knowledge / BBS proofs. Supported operators per the authoritative bounded grammar $\text{attr} \ \{\text{EQ}, \text{LT}, \text{LTE}, \text{IN}\le 8\} \ \text{constant}$:
    - `EQ`: Cryptographic equality (hashed/blinded)
-   - `IN`: Membership in an allowed set
+   - `LT`: Less than
+   - `LTE`: Less than or equal to
+   - `IN`: Membership in an allowed set (maximum 8 items)
+   - _(Note: `GT`, `GTE`, and `NEQ` are rejected per bounded grammar)_
 5. **`disclosures`**: Specific attributes requested for plain selective disclosure (must be explicitly approved and minimized).
+
 6. **`context`**: Scoped domain identifier used to generate the Context-Scoped Nullifier.
 7. **`nonce`**: Cryptographically secure random 256-bit challenge. Valid for a single presentation within the expiry window.
 8. **`expires_at`**: Strict expiration timestamp. Maximum validity window is 120 seconds.
