@@ -185,6 +185,36 @@ export class InMemoryTrustRegistry implements ITrustRegistry {
     };
     this.verifiers.set('did:pramana:verifier:permit-portal-01', permitLicence);
 
+    const subsidyLicence: VerifierLicence = {
+      did: 'did:pramana:verifier:fuel-subsidy-01',
+      verifierId: 'fuel-subsidy-01',
+      legalName: 'Municipal Fuel Subsidy Authority',
+      permittedPurposes: ['fuel_subsidy_eligibility', 'PURPOSE_FUEL_SUBSIDY'],
+      permittedPredicates: [
+        'urn:pramana:attr:permit:status',
+        'commercial_permit_status',
+        'urn:pramana:attr:fin:trailing_12m_earnings',
+        'trailing_12m_earnings',
+        'urn:pramana:attr:civil:district',
+        'district',
+      ],
+      permittedAttributes: [
+        'urn:pramana:attr:permit:status',
+        'commercial_permit_status',
+        'urn:pramana:attr:fin:trailing_12m_earnings',
+        'trailing_12m_earnings',
+        'urn:pramana:attr:civil:district',
+        'district',
+      ],
+      maxRetentionPolicy: 'AUDIT_RECEIPT_ONLY_ZERO_PII',
+      validUntil: '2030-12-31T23:59:59Z',
+      status: 'ACTIVE',
+      issuedAt: '2025-01-01T00:00:00Z',
+    };
+    this.verifiers.set('did:pramana:verifier:fuel-subsidy-01', subsidyLicence);
+    this.verifiers.set('fuel-subsidy-01', subsidyLicence);
+    this.verifiers.set('did:pramana:verifier:subsidy-dept-01', subsidyLicence);
+
     // Negative test licences: Expired, Suspended, Revoked
     this.verifiers.set('did:pramana:verifier:expired-01', {
       did: 'did:pramana:verifier:expired-01',
@@ -596,6 +626,36 @@ export class InMemoryTrustRegistry implements ITrustRegistry {
         predicates: ['commercial_permit_status == ACTIVE'],
       },
       notShared: ['driving_violations', 'personal_vehicles', 'home_address', 'phone_number'],
+    });
+
+    const subsidyTemplate: TemplateBundle = {
+      templateId: 'tmpl:consent:fuel-subsidy-v1',
+      purposeCode: 'fuel_subsidy_eligibility',
+      locale: 'en-US',
+      templateText:
+        '{{verifier_name}} is requesting to verify your eligibility for the commercial fuel subsidy program. Disclosed: {{disclosed_attributes}}. Proven conditions: {{predicates_summary}}. Your bank account number, individual transactions, exact earnings amount, and residential address will NOT be shared.',
+      parameterBindings: ['verifier_name', 'disclosed_attributes', 'predicates_summary'],
+      version: '1.0.0',
+      who: {
+        role: 'Municipal Authority',
+        legalEntity: 'Municipal Fuel Subsidy Authority',
+      },
+      what: {
+        requestedAttributes: [CANONICAL_ATTRIBUTES.DISTRICT, 'district'],
+        predicates: ['commercial_permit_status == ACTIVE', 'trailing_12m_earnings <= 300000'],
+      },
+      notShared: [
+        'bank_account_number',
+        'transaction_history',
+        'exact_earnings_amount',
+        'residential_address',
+        'phone_number',
+      ],
+    };
+    this.templates.set('fuel_subsidy_eligibility:en-US', subsidyTemplate);
+    this.templates.set('PURPOSE_FUEL_SUBSIDY:en-US', {
+      ...subsidyTemplate,
+      purposeCode: 'PURPOSE_FUEL_SUBSIDY',
     });
   }
 

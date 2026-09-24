@@ -6,3 +6,5 @@ export * from './request.service.js';
 export * from './verification.service.js';
 export * from './registry.service.js';
 export * from './mediation.service.js';
+export * from './policy.service.js';
+export * from './consent.service.js';

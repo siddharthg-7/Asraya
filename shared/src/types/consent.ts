@@ -51,3 +51,70 @@ export interface ConsentContract {
   readonly expiresAt: string; // ISO 8601 UTC
   readonly citizenSignature: string; // Cryptographic signature of holder key sealing consent
 }
+
+export type CitizenConsentStatus = 'PENDING' | 'APPROVED' | 'REJECTED';
+
+export type PolicyStatus = 'AUTHORIZED' | 'REJECTED';
+
+export interface PolicyEvaluationResult {
+  readonly status: PolicyStatus;
+  readonly authorized: boolean;
+  readonly verifierDid: string;
+  readonly purpose: string;
+  readonly permittedDisclosures: readonly string[];
+  readonly permittedPredicates: readonly Predicate[];
+  readonly violations?: readonly string[];
+  readonly evaluatedAt: string;
+}
+
+export interface DisclosedAttributeView {
+  readonly attributeId: string;
+  readonly name: string;
+  readonly description: string;
+  readonly category: string;
+}
+
+export interface PredicateConditionView {
+  readonly attributeId: string;
+  readonly name: string;
+  readonly operator: string;
+  readonly humanReadableCondition: string;
+}
+
+/**
+ * Structured, human-readable Consent Information delivered to the Citizen Wallet.
+ * Distinguishes:
+ * - WHO (verified legal identity from Trust Registry, not verifier display claim)
+ * - WHAT (explicitly separating disclosed values from predicate-proven conditions)
+ * - NOT SHARED (certified private attributes protected by minimization rules)
+ *
+ * Citizen consent status begins explicitly as PENDING.
+ */
+export interface ConsentInformation {
+  readonly requestId: string;
+  readonly requestNonce: string;
+  readonly who: {
+    readonly verifierDid: string;
+    readonly verifierName: string; // Certified legal name from Trust Registry
+    readonly role?: string | undefined;
+    readonly legalEntity?: string | undefined;
+  };
+  readonly what: {
+    readonly purpose: string;
+    readonly purposeDescription?: string | undefined;
+    readonly disclosedAttributes: readonly DisclosedAttributeView[];
+    readonly predicates: readonly PredicateConditionView[];
+  };
+  readonly notShared: readonly string[];
+  readonly template: TemplateBinding;
+  readonly citizenConsentStatus: CitizenConsentStatus;
+  readonly expiresAt: string;
+}
+
+export interface CitizenDecisionRecord {
+  readonly requestId: string;
+  readonly requestNonce: string;
+  readonly decision: 'APPROVED' | 'REJECTED';
+  readonly timestamp: string;
+  readonly signature?: string | undefined; // Cryptographic signature deferred to Phase 5
+}

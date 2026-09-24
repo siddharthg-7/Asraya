@@ -1,15 +1,18 @@
 /**
  * @fileoverview Request Controller
- * Pramāṇa Protocol - Phase 2 Trust Registry & Institution Trust Layer
+ * Pramāṇa Protocol - Phase 4 Request -> Policy -> Consent
  *
- * Implements the mandatory Trust Registry validation gate before issuing
- * bounded RequestContracts.
+ * Implements endpoints for:
+ * - Request Contract creation (Phase 2 backward-compatible)
+ * - Request Contract structural & grammar validation (Phase 4 Step 2)
+ * - Trust Registry Policy evaluation (Phase 4 Step 3-7)
  */
 
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { requestService } from '../services/request.service.js';
 import { registryService } from '../services/registry.service.js';
-import { Predicate, validatePredicate } from '@pramana/shared';
+import { policyService } from '../services/policy.service.js';
+import { Predicate, validatePredicate, RequestContract } from '@pramana/shared';
 
 export interface CreateRequestBody {
   readonly verifierDid: string;
@@ -17,9 +20,40 @@ export interface CreateRequestBody {
   readonly purpose: string;
   readonly context: string;
   readonly predicates: readonly Predicate[];
+  readonly revealRequirements?: readonly string[];
+  readonly disclose?: readonly string[];
+  readonly disclosures?: readonly string[];
 }
 
 export class RequestController {
+  /**
+   * Validates request syntax, grammar, and bounds without querying registry state.
+   */
+  static async validate(
+    request: FastifyRequest<{ Body: unknown }>,
+    reply: FastifyReply,
+  ): Promise<void> {
+    const validated = policyService.validateRequest(request.body);
+    reply.status(200).send({
+      valid: true,
+      requestContract: validated,
+    });
+  }
+
+  /**
+   * Evaluates request against Trust Registry permissions (verifier, purpose, attributes, predicates, retention).
+   */
+  static async evaluatePolicy(
+    request: FastifyRequest<{ Body: RequestContract }>,
+    reply: FastifyReply,
+  ): Promise<void> {
+    const result = await policyService.evaluatePolicy(request.body);
+    reply.status(200).send(result);
+  }
+
+  /**
+   * Phase 2 creation endpoint (maintained for backward compatibility).
+   */
   static async create(
     request: FastifyRequest<{ Body: CreateRequestBody }>,
     reply: FastifyReply,
