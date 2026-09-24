@@ -1,0 +1,9 @@
+{
+  "_notice": "MOCK - DEMO ONLY - NOT PRODUCTION DATA",
+  "licenseNumber": "MOCK-DL-998877",
+  "category": "LIGHT_MOTOR_VEHICLE",
+  "issueDate": "2020-01-01",
+  "validUntil": "2030-01-01",
+  "holderName": "Mock Citizen",
+  "endorsements": ["A", "B"]
+}

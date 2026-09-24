@@ -1,5 +1,5 @@
 {
-  "name": "pramana-workspace",
+  "name": "pramana",
   "version": "0.1.0",
   "private": true,
   "description": "Pramāṇa — Privacy-Preserving Proof Protocol (Move the Question, Not the Data)",
@@ -16,6 +16,8 @@
     "test:security": "vitest run tests/security",
     "test:conformance": "vitest run tests/conformance",
     "verify:setup": "node --experimental-strip-types scripts/verify-setup.ts",
+    "dev:frontend": "pnpm --filter @pramana/frontend run dev",
+    "dev:backend": "pnpm --filter @pramana/backend run dev",
     "clean": "pnpm -r exec rimraf dist out *.tsbuildinfo"
   },
   "devDependencies": {

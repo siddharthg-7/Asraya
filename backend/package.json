@@ -1,0 +1,24 @@
+{
+  "name": "@pramana/backend",
+  "version": "0.1.0",
+  "description": "Pramāṇa Protocol Backend Infrastructure (Fastify + TypeScript)",
+  "main": "./dist/server.js",
+  "types": "./dist/server.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc -b",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "clean": "rimraf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@fastify/cors": "^10.0.2",
+    "@pramana/shared": "workspace:*",
+    "fastify": "^5.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.13.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  }
+}

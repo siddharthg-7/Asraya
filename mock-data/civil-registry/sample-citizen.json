@@ -1,0 +1,7 @@
+{
+  "_notice": "MOCK - DEMO ONLY - NOT PRODUCTION DATA",
+  "citizenId": 1001,
+  "dateOfBirth": "2000-01-15",
+  "stateCode": "KA",
+  "isCitizen": true
+}
