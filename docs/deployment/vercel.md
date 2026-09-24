@@ -1,59 +1,90 @@
-# Vercel Deployment Guide — Pramāṇa Protocol Frontend
+# Vercel Deployment & Full-Stack Architecture Guide — Pramāṇa Protocol
 
-Deploy the Pramāṇa privacy-preserving proof verification frontend on Vercel in less than 2 minutes.
-
----
-
-## ⚡ Option 1: Fast Deploy via Vercel Dashboard (Recommended)
-
-1. Open [vercel.com/new](https://vercel.com/new).
-2. Import the Git repository: **`siddharthg-7/Asraya`**.
-3. In **Configure Project**, the repository's root [`vercel.json`](file:///c:/project-self-1/pramana/vercel.json) automatically pre-configures everything. Verify the following fields:
-
-| Setting              | Value                                                         |
-| :------------------- | :------------------------------------------------------------ |
-| **Framework Preset** | `Vite`                                                        |
-| **Root Directory**   | `./` _(leave default repository root)_                        |
-| **Build Command**    | `pnpm run build:vercel` _(or auto-detected from vercel.json)_ |
-| **Output Directory** | `frontend/dist`                                               |
-| **Install Command**  | `pnpm install`                                                |
-
-4. **Environment Variables** (Optional):
-   - `VITE_BACKEND_URL`: URL of your deployed Pramāṇa backend (e.g. `https://api.yourdomain.com`).  
-     _(If omitted, defaults to relative requests for reverse-proxy setups, or `http://localhost:3001` in local dev)._
-5. Click **Deploy**.
+This guide explains how the **Frontend** and **Backend** are deployed on Vercel, how requests flow, and the production trade-offs between Serverless and Dedicated hosting.
 
 ---
 
-## 💻 Option 2: Deploy via Vercel CLI
+## ⚡ Option 1: 100% Serverless on Vercel (Frontend + Backend on Vercel)
 
-From your terminal at the repository root:
+Pramāṇa is configured to run **both the Vite React frontend AND the Fastify backend directly on Vercel** out of the box with zero external infrastructure required.
 
-```bash
-# 1. Install Vercel CLI (if not already installed)
-npm install -g vercel
+### How It Works Under the Hood
 
-# 2. Preview deployment
-vercel
-
-# 3. Production deployment
-vercel --prod
+```
+Citizen Browser / Verifier UI
+        │
+        ├─── Static Assets (/) ──────► Vercel Global Edge CDN ──► frontend/dist/index.html
+        │
+        └─── API Calls (/api/v1/*, /health) ──► Vercel Serverless Function ──► api/index.ts (Fastify)
+                                                                                  │
+                                                                   ┌──────────────┴──────────────┐
+                                                                   ▼                             ▼
+                                                           BBS+ Verification            Groth16 zk-SNARK Engine
+                                                          (Rust/WASM BLS12-381)       (circuits/build/predicate.zkey)
 ```
 
-When prompted:
+1. **Vercel Serverless Bridge ([api/index.ts](file:///c:/project-self-1/pramana/api/index.ts))**:
+   - Wraps the Fastify application instance inside a Vercel Serverless Function (`@vercel/node`).
+   - Reuses a warm Fastify server instance across invocations.
+2. **Path Routing ([vercel.json](file:///c:/project-self-1/pramana/vercel.json))**:
+   - `/health` ➔ Proxied to Serverless Function `api/index.ts`.
+   - `/api/v1/:path*` ➔ Proxied to Serverless Function `api/index.ts`.
+   - `/(.*)` ➔ Routed to `frontend/dist/index.html` (SPA routing).
+3. **ZK Proving Key Packaging**:
+   - `vercel.json` includes `includeFiles: "circuits/build/**"` with `maxDuration: 30`, ensuring `predicate.zkey` (43KB) is bundled directly into the serverless function environment.
+4. **WASM BLS12-381 Support**:
+   - Uses `@mattrglobal/bbs-signatures` compiled to WebAssembly, executing within Node.js without requiring native Linux C++ build tools.
 
-- **Set up and deploy?**: `y`
-- **Which scope?**: Select your account / team
-- **Link to existing project?**: `n`
-- **Project name**: `pramana` (or any name)
-- **In which directory is your code located?**: `./`
+### Deploy Steps
 
-The CLI will read [`vercel.json`](file:///c:/project-self-1/pramana/vercel.json) and deploy automatically.
+1. Go to [vercel.com/new](https://vercel.com/new) and import **`siddharthg-7/Asraya`**.
+2. Vercel automatically detects [`vercel.json`](file:///c:/project-self-1/pramana/vercel.json):
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: `./` _(repository root)_
+   - **Build Command**: `pnpm run build:vercel`
+   - **Output Directory**: `frontend/dist`
+3. Click **Deploy**. Both the Frontend and the Backend API will be live on the same Vercel domain!
 
 ---
 
-## 🛠️ Monorepo Configuration Details
+## 🚀 Option 2: Dedicated Backend + Vercel Frontend (Recommended for High Scale)
 
-- **Single Page Application (SPA) Routing**: Root and frontend [`vercel.json`](file:///c:/project-self-1/pramana/vercel.json) include rewrites (`/(.*) -> /index.html`) to ensure paths like `/wallet` and `/verifier` refresh without 404 errors.
-- **Cross-Origin API (CORS)**: The Fastify backend has permissive CORS (`origin: true`) configured in [`backend/src/server.ts`](file:///c:/project-self-1/pramana/backend/src/server.ts), allowing Vercel preview and production domains to connect directly without CORS blocking.
-- **Zero-PII Architecture**: The frontend wallet and consent UI execute client-side selective disclosure and verification without storing any citizen PII.
+For enterprise production deployments requiring permanent in-memory nonce cache and persistent multi-region anti-replay protection:
+
+```
+┌─────────────────────────────────┐        Cross-Origin JSON       ┌─────────────────────────────────┐
+│     Vercel Frontend (Edge)      │ ─────────────────────────────► │    Dedicated Backend (Node)     │
+│  https://pramana.vercel.app     │                                │  https://api.yourdomain.com     │
+│  (React 19 + Vite SPA)          │ ◄───────────────────────────── │  (Fastify + Stateful Memory)    │
+└─────────────────────────────────┘           CORS: true           └─────────────────────────────────┘
+```
+
+### Why Use a Dedicated Backend for Production?
+
+1. **Stateful Anti-Replay Defense**:
+   - Pramāṇa’s [`InMemoryVerifierStorage`](file:///c:/project-self-1/pramana/backend/src/database/in-memory-storage.ts) stores one-time challenge nonces (120s TTL) and context-scoped nullifier hashes.
+   - On serverless platforms (Vercel Lambdas), functions scale to zero or run on independent regional containers, meaning nonces are isolated to that lambda instance.
+   - A dedicated long-running process (or Redis-backed storage) maintains the anti-replay cache globally.
+2. **Instant Warm Proving**:
+   - Eliminates cold starts completely. Proving and verification execute within sub-second latencies continuously.
+
+### Deploying the Backend on Railway, Render, or Fly.io
+
+1. **Deploy Backend**:
+   - **Build Command**: `pnpm install && pnpm run circuits:setup && pnpm run build`
+   - **Start Command**: `node backend/dist/server.js`
+   - **Environment Variables**:
+     - `PORT=3001`
+     - `HOST=0.0.0.0`
+     - `BBS_SIGNATURES_MODE=WASM`
+2. **Link Vercel Frontend to Backend**:
+   - In **Vercel Dashboard** ➔ Project Settings ➔ **Environment Variables**:
+     - Set `VITE_BACKEND_URL=https://api.yourdomain.com` (your backend URL).
+   - Re-deploy. The frontend API client automatically routes all requests to your dedicated backend.
+
+---
+
+## 🔒 Security & Anti-Hallucination Compliance
+
+- **CORS Configuration**: [`backend/src/server.ts`](file:///c:/project-self-1/pramana/backend/src/server.ts) allows `origin: true`, enabling Vercel preview branch deployments (`https://*-your-team.vercel.app`) to interact securely with the API.
+- **Data Minimization**: Neither the Vercel frontend nor the backend stores citizen PII. Proof verification returns boolean verdicts and audit receipts only.

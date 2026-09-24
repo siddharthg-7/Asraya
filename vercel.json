@@ -4,7 +4,21 @@
   "buildCommand": "pnpm run build:vercel",
   "outputDirectory": "frontend/dist",
   "installCommand": "pnpm install",
+  "functions": {
+    "api/index.ts": {
+      "includeFiles": "circuits/build/**",
+      "maxDuration": 30
+    }
+  },
   "rewrites": [
+    {
+      "source": "/health",
+      "destination": "/api"
+    },
+    {
+      "source": "/api/v1/:path*",
+      "destination": "/api"
+    },
     {
       "source": "/(.*)",
       "destination": "/index.html"
