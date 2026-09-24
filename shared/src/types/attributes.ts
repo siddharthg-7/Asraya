@@ -16,6 +16,7 @@ export interface AttributeDefinition {
   readonly schemaId: string;
   readonly allowedValues?: readonly (string | number)[] | undefined;
   readonly unit?: string | undefined;
+  readonly version?: string | undefined;
 }
 
 /**
@@ -26,17 +27,20 @@ export const CANONICAL_ATTRIBUTES = {
   AGE: 'urn:pramana:attr:civil:age',
   BIRTHDATE: 'urn:pramana:attr:civil:birthdate',
   DOMICILE_STATE: 'urn:pramana:attr:civil:domicile_state',
+  DISTRICT: 'urn:pramana:attr:civil:district',
   CITIZENSHIP: 'urn:pramana:attr:civil:citizenship',
 
   // Financial
   ANNUAL_INCOME: 'urn:pramana:attr:fin:annual_income',
+  TRAILING_12M_EARNINGS: 'urn:pramana:attr:fin:trailing_12m_earnings',
   ACCOUNT_BALANCE: 'urn:pramana:attr:fin:account_balance',
   CREDIT_SCORE: 'urn:pramana:attr:fin:credit_score',
   CURRENCY: 'urn:pramana:attr:fin:currency',
 
-  // Transport
+  // Transport & Permits
   LICENSE_CATEGORY: 'urn:pramana:attr:trans:license_category',
   LICENSE_VALIDITY: 'urn:pramana:attr:trans:validity_date',
+  COMMERCIAL_PERMIT_STATUS: 'urn:pramana:attr:permit:status',
 } as const;
 
 export type CanonicalAttributeId = (typeof CANONICAL_ATTRIBUTES)[keyof typeof CANONICAL_ATTRIBUTES];
@@ -46,15 +50,19 @@ export const KNOWN_ATTRIBUTE_ALIASES = new Set<string>([
   'birthdate',
   'domicile',
   'domicile_state',
+  'district',
   'citizenship',
   'income',
   'annual_income',
   'annual_gross_income',
+  'trailing_12m_earnings',
   'account_balance',
   'credit_score',
   'currency',
   'license_category',
   'license_validity',
+  'permit_status',
+  'commercial_permit_status',
   'category',
 ]);
 

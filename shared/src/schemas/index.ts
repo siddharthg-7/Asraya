@@ -7,3 +7,4 @@ export * from './request-contract.schema.js';
 export * from './credential.schema.js';
 export * from './proof.schema.js';
 export * from './receipt.schema.js';
+export * from './registry.schema.js';

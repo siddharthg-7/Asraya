@@ -1,18 +1,51 @@
 /**
  * @fileoverview Registry Query Service
- * Pramāṇa Protocol - Phase 1 Foundation
+ * Pramāṇa Protocol - Phase 2 Trust Registry & Institution Trust Layer
  */
 
-import { trustRegistry } from '../registry/trust-registry.js';
-import { IssuerRecord, VerifierLicence, TemplateBundle, TrustCheckpoint } from '@pramana/shared';
+import { trustRegistry, checkpointVerifier } from '../registry/trust-registry.js';
+import {
+  IssuerKey,
+  VerifierLicence,
+  AttributeDefinition,
+  AttributeCategory,
+  BridgeDefinition,
+  AdapterManifest,
+  TemplateBundle,
+  TrustCheckpoint,
+} from '@pramana/shared';
 
 export class RegistryService {
-  async getIssuer(did: string): Promise<IssuerRecord | null> {
-    return trustRegistry.getIssuer(did);
+  async getIssuer(didOrId: string): Promise<IssuerKey | null> {
+    return trustRegistry.getIssuer(didOrId);
   }
 
-  async getVerifierLicence(did: string): Promise<VerifierLicence | null> {
-    return trustRegistry.getVerifierLicence(did);
+  async getVerifierLicence(didOrId: string): Promise<VerifierLicence | null> {
+    return trustRegistry.getVerifierLicence(didOrId);
+  }
+
+  async getAttributeDefinition(idOrAlias: string): Promise<AttributeDefinition | null> {
+    return trustRegistry.getAttributeDefinition(idOrAlias);
+  }
+
+  async listAttributes(category?: AttributeCategory): Promise<AttributeDefinition[]> {
+    return trustRegistry.listAttributes(category);
+  }
+
+  async getBridge(bridgeId: string): Promise<BridgeDefinition | null> {
+    return trustRegistry.getBridge(bridgeId);
+  }
+
+  async getBridgesForAttribute(canonicalAttributeId: string): Promise<BridgeDefinition[]> {
+    return trustRegistry.getBridgesForAttribute(canonicalAttributeId);
+  }
+
+  async getAdapter(adapterId: string): Promise<AdapterManifest | null> {
+    return trustRegistry.getAdapter(adapterId);
+  }
+
+  async getAdaptersForAttribute(canonicalAttributeId: string): Promise<AdapterManifest[]> {
+    return trustRegistry.getAdaptersForAttribute(canonicalAttributeId);
   }
 
   async getTemplate(purposeCode: string, locale: string = 'en-US'): Promise<TemplateBundle | null> {
@@ -21,6 +54,10 @@ export class RegistryService {
 
   async getLatestCheckpoint(): Promise<TrustCheckpoint> {
     return trustRegistry.getLatestCheckpoint();
+  }
+
+  async verifyCheckpoint(checkpoint: TrustCheckpoint): Promise<boolean> {
+    return checkpointVerifier.verifyCheckpoint(checkpoint);
   }
 }
 

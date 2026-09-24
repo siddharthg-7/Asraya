@@ -86,14 +86,13 @@ export function validateSinglePredicate(input: unknown): SinglePredicate {
   const operator = opStr as PredicateOperator;
 
   // 4. INVALID CONSTANT: Missing or malformed constant
-  if (!('constant' in record) || record['constant'] === undefined || record['constant'] === null) {
+  const constant = record['constant'] ?? record['value'];
+  if (constant === undefined || constant === null) {
     throw new PramanaError(
       ERROR_CODES.INVALID_PREDICATE,
       'INVALID CONSTANT: Missing predicate constant value',
     );
   }
-
-  const constant = record['constant'];
 
   if (operator === 'IN') {
     if (!Array.isArray(constant)) {
