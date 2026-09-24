@@ -18,6 +18,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import * as binFileUtils from '@iden3/binfileutils';
 import { Groth16ProofPayload, ERROR_CODES, PramanaError } from '@pramana/shared';
+import { setupPredicateCircuit } from './groth16-setup.js';
 
 export interface PredicateProofInput {
   readonly earnings: number;
@@ -101,6 +102,9 @@ export class Groth16Service implements IPredicateProofService {
 
     const { vkeyPath } = this.getArtifactsPaths();
     if (!fs.existsSync(vkeyPath)) {
+      await setupPredicateCircuit();
+    }
+    if (!fs.existsSync(vkeyPath)) {
       throw new PramanaError(
         ERROR_CODES.PROOF_VERIFICATION_FAILED,
         `Circuit verification key not found at ${vkeyPath}. Ensure circuit setup has been executed.`,
@@ -135,6 +139,9 @@ export class Groth16Service implements IPredicateProofService {
     }
 
     const { zkeyPath } = this.getArtifactsPaths();
+    if (!fs.existsSync(zkeyPath)) {
+      await setupPredicateCircuit();
+    }
     if (!fs.existsSync(zkeyPath)) {
       throw new PramanaError(
         ERROR_CODES.PROOF_VERIFICATION_FAILED,

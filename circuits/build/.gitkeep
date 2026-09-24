@@ -1,0 +1,2 @@
+# Build artifacts (.r1cs, .zkey, .wasm) generated during circuit compilation go here.
+# Artifacts are git-ignored.

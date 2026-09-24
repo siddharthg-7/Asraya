@@ -8,3 +8,4 @@ export * from './key-provider.js';
 export * from './issuer-key-manager.js';
 export * from './bbs-service.js';
 export * from './groth16-service.js';
+export * from './groth16-setup.js';

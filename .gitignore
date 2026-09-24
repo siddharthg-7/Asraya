@@ -4,7 +4,7 @@ node_modules/
 
 # Build outputs
 dist/
-build/
+/build/
 out/
 *.tsbuildinfo
 
@@ -27,7 +27,8 @@ credentials.json
 *.db-wal
 
 # Zero-Knowledge & cryptographic compilation artifacts
-circuits/build/
+circuits/build/*
+!circuits/build/.gitkeep
 circuits/*.r1cs
 circuits/*.sym
 circuits/*.zkey

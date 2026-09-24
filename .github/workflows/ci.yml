@@ -7,10 +7,15 @@ on:
     branches: [main]
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
 jobs:
-  verify:
-    name: Verify & Test Monorepo
+  quality:
+    name: Code Quality & Verification
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - name: Checkout Code
@@ -21,7 +26,7 @@ jobs:
         with:
           version: 10.26.2
 
-      - name: Setup Node.js
+      - name: Setup Node.js 22
         uses: actions/setup-node@v4
         with:
           node-version: 22
@@ -30,20 +35,73 @@ jobs:
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Verify Setup
+      - name: Verify Architecture Layout
         run: pnpm run verify:setup
 
-      - name: Check Formatting
+      - name: Check Formatting (Prettier)
         run: pnpm run format:check
 
-      - name: Typecheck
+      - name: Typecheck Monorepo (TypeScript)
         run: pnpm run typecheck
 
-      - name: Lint
+      - name: Lint Monorepo (ESLint)
         run: pnpm run lint
 
-      - name: Test
+  test:
+    name: Cryptographic & Protocol Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.2
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Setup Circuit Proving & Verification Artifacts
+        run: pnpm run circuits:setup
+
+      - name: Run Test Suite (Vitest)
         run: pnpm test
 
-      - name: Build
+  build:
+    name: Monorepo Production Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: [quality, test]
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.26.2
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'pnpm'
+
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build Packages (TypeScript)
         run: pnpm run build
+
+      - name: Build Frontend Application (Vite)
+        run: pnpm --filter @pramana/frontend run build
