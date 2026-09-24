@@ -76,7 +76,7 @@ Minimal Verifier Storage (Audit Receipt & Verdict ONLY — ZERO Raw PII)
   - **Tier A (Default)**: BBS Multi-Message Signatures over BLS12-381 G2 (`@mattrglobal/bbs-signatures`). Enables selective disclosure of authorized claims and randomized blinding of predicate-only attributes without revealing underlying data.
   - **Tier B (Fallback)**: Groth16 zero-knowledge SNARK circuits over BN128 (`snarkjs`) for arbitrary bounded numeric inequality predicates (`numeric_predicate.circom`), bound to session nonces.
   - **Holder Binding**: Cryptographically links the presentation to a holder-controlled secret and session challenge nonce, ensuring credentials cannot be stolen or forwarded.
-  - **Context-Scoped Nullifiers & Unlinkable Pseudonyms**: HMAC-SHA256 derived identifiers ensuring Verifier A and Verifier B cannot correlate presentations, while preventing duplicate claims within a campaign.
+  - **Context-Scoped Nullifiers & Unlinkable Pseudonyms**: Application-level HMAC-SHA256 derived identifiers (not native BBS primitives) ensuring Verifier A and Verifier B cannot correlate presentations, while preventing duplicate claims within a campaign.
 - **Reference**: Detailed specification and benchmark measurements in [cryptography.md](file:///c:/project-self-1/pramana/docs/architecture/cryptography.md).
 
 ### Tier 3: Non-Custodial Consent & Channel Protocol

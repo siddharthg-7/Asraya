@@ -30,12 +30,13 @@ This document tracks the verified status of all modules, applications, and crypt
 
 ## Known TBD / Unknown Items
 
-1. **Production Hardware Security Modules (HSM)**: Issuer private key signing in production should be backed by Cloud KMS / PKCS#11 rather than in-memory dev keys.
-2. **Multi-Party Computation (MPC) Ceremony**: The Groth16 proving/verification keys currently use a local development trusted setup; production requires a formal ceremony.
-3. **Phase 6 Ephemeral Transport**: QR chunking, BLE, HPKE encryption, and wire inspectors belong to Phase 6.
+1. **Groth16 Setup is Explicitly MVP-Only**: Development trusted setup used for MVP; production deployment requires a formal MPC ceremony. Do not call this production-ready ZK infrastructure.
+2. **Verifier Pseudonyms**: Verifier-scoped pseudonym derived from a holder secret using HMAC-SHA256 (application-level construction, not a native BBS primitive).
+3. **Production Hardware Security Modules (HSM)**: Issuer private key signing in production should be backed by Cloud KMS / PKCS#11 rather than in-memory dev keys.
+4. **Phase 6 Ephemeral Transport**: QR chunking, BLE, HPKE encryption, and wire inspectors belong to Phase 6.
 
 ---
 
 ## Verification Statement
 
-> As of Phase 5 completion, the dual-tier cryptographic core (BBS+ over BLS12-381 G2 and Groth16 zk-SNARK numeric inequality predicates over BN128), citizen wallet presentation generation, unlinkable verifier pseudonyms, context nullifiers, and structured cryptographic verification pipeline are fully operational with 184 deterministic unit, integration, security, and conformance tests passing. Zero fake signatures, zero dummy proofs, and zero secrets are committed to the repository.
+> As of Phase 5 completion, the dual-tier cryptographic core (BBS+ over BLS12-381 G2 and Groth16 zk-SNARK numeric inequality predicates over BN128), citizen wallet presentation generation, application-layer unlinkable verifier pseudonyms (HMAC-SHA256), context nullifiers, and structured cryptographic verification pipeline are fully operational with 184 deterministic unit, integration, security, and conformance tests passing. Zero fake signatures, zero dummy proofs, and zero secrets are committed to the repository.

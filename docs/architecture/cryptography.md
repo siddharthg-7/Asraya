@@ -105,6 +105,8 @@ export interface VerifiableCredential {
 ## 7. Verifier Pseudonym & Unlinkability `[IMPLEMENTED]`
 
 - **Design**: Eliminates global citizen tracking identifiers (Rule 11).
+- **Classification**: **Verifier-scoped pseudonym derived from a holder secret using HMAC-SHA256.**
+- **Cryptographic Grounding**: This is an application-level verifier-scoped pseudonym construction designed to guarantee unlinkability across independent verifiers for the hackathon MVP. It is **NOT** a native BBS cryptographic primitive.
 - **Pseudonym Derivation**:
   $$\text{nym}_{\text{verifier}} = \text{HMAC-SHA256}(\text{holderSecret}, \text{"pramana:nym:"} \parallel \text{verifierDid} \parallel \text{contextId})$$
 - **Unlinkability Property**: Verifier A sees $\text{nym}_A$, Verifier B sees $\text{nym}_B$. Neither verifier can correlate presentations to the same citizen without possessing the citizen's private holder secret.
@@ -148,11 +150,13 @@ export interface VerifiableCredential {
 
 ---
 
-## 11. Trusted Setup Limitations `[IMPLEMENTED — MVP DEMO SETUP]`
+## 11. Trusted Setup Limitations `[IMPLEMENTED — MVP DEMO SETUP ONLY]`
 
-- **Status**: `[IMPLEMENTED]` for reproducible local testing; `[NOT IMPLEMENTED]` for multi-party production ceremony.
+- **Status**: `[IMPLEMENTED — MVP PROTOTYPE ONLY]`.
+- **Authoritative Qualification**: **Development trusted setup used for MVP; production deployment requires a formal MPC ceremony.**
+- **Guardrail**: **Do not call this production-ready ZK infrastructure.**
 - **Ceremony**: Generated using SnarkJS local Powers of Tau (capacity $2^7 = 128$ constraints) and Phase 2 Groth16 circuit-specific ceremony.
-- **Production Requirement**: Production deployment requires a verified multi-party computation (MPC) ceremony with attested parameter generation.
+- **Production Requirement**: Production deployment requires a multi-party computation (MPC) ceremony with attested parameter generation and toxic waste destruction.
 
 ---
 
