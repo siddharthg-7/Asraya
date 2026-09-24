@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "buildCommand": "pnpm -w run build:vercel",
-  "outputDirectory": "frontend/dist",
+  "outputDirectory": "apps/wallet/dist",
   "installCommand": "pnpm install",
   "functions": {
     "api/index.ts": {

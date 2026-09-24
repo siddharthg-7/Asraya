@@ -13,7 +13,7 @@ Pramāṇa is configured to run **both the Vite React frontend AND the Fastify b
 ```
 Citizen Browser / Verifier UI
         │
-        ├─── Static Assets (/) ──────► Vercel Global Edge CDN ──► frontend/dist/index.html
+        ├─── Static Assets (/) ──────► Vercel Global Edge CDN ──► apps/wallet/dist/index.html
         │
         └─── API Calls (/api/v1/*, /health) ──► Vercel Serverless Function ──► api/index.ts (Fastify)
                                                                                   │
@@ -41,9 +41,9 @@ Citizen Browser / Verifier UI
 2. Vercel automatically detects [`vercel.json`](file:///c:/project-self-1/pramana/vercel.json):
    - **Framework Preset**: `Vite`
    - **Root Directory**: `./` _(repository root)_
-   - **Build Command**: `pnpm run build:vercel`
-   - **Output Directory**: `frontend/dist`
-3. Click **Deploy**. Both the Frontend and the Backend API will be live on the same Vercel domain!
+   - **Build Command**: `pnpm -w run build:vercel`
+   - **Output Directory**: `apps/wallet/dist` _(build script automatically mirrors to `frontend/dist` as well)_
+3. Click **Deploy**. Both the redesigned Āśraya Frontend (`apps/wallet`) and the Backend API will be live on the same Vercel domain!
 
 ---
 
