@@ -17,6 +17,7 @@
     "test:conformance": "vitest run tests/conformance",
     "verify:setup": "node --experimental-strip-types scripts/verify-setup.ts",
     "circuits:setup": "pnpm --filter @pramana/backend exec tsx ../scripts/setup-circuits.ts",
+    "build:vercel": "tsc -b && pnpm --filter @pramana/frontend run build",
     "dev:frontend": "pnpm --filter @pramana/frontend run dev",
     "dev:backend": "pnpm --filter @pramana/backend run dev",
     "clean": "pnpm -r exec rimraf dist out *.tsbuildinfo"
