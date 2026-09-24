@@ -29,3 +29,26 @@ export interface VerifiableCredential {
   readonly claims: Readonly<Record<string, string | number | boolean>>;
   readonly signature: string; // BBS+ multi-message signature over claims tuple
 }
+
+/**
+ * Canonical Attribute Value emitted by an adapter after transformation
+ */
+export interface CanonicalAttributeValue {
+  readonly attributeId: string;
+  readonly value: string | number | boolean;
+  readonly sourceAdapterId?: string | undefined;
+  readonly bridgeId?: string | undefined;
+}
+
+/**
+ * Minimal Claim Set issued for a citizen to satisfy a bounded request
+ * Strictly excludes extraneous source database fields.
+ */
+export interface MinimalClaimSet {
+  readonly schemaId: string;
+  readonly issuerDid: string;
+  readonly subjectId: string; // Synthetic citizen identifier
+  readonly claims: Readonly<Record<string, string | number | boolean>>;
+  readonly issuedAt: string; // ISO 8601 UTC
+  readonly isMockUnsigned: true; // Explicitly marked as mock/unsigned in Phase 3
+}

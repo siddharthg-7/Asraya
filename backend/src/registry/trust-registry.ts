@@ -359,6 +359,28 @@ export class InMemoryTrustRegistry implements ITrustRegistry {
     };
     this.bridges.set(bankingBridge.bridgeId, bankingBridge);
 
+    const bankBalBridge: BridgeDefinition = {
+      bridgeId: 'bridge:bank:camt053-to-balance',
+      name: 'Banking CAMT.053 Statement to Account Balance',
+      sourceSystem: 'CORE_BANKING_ISO20022',
+      sourceField: 'BkToCstmrStmt.Stmt.Bal.Amt',
+      canonicalAttributeId: CANONICAL_ATTRIBUTES.ACCOUNT_BALANCE,
+      transformRule: 'NET_BALANCE_INDICATOR',
+      version: '1.0.0',
+    };
+    this.bridges.set(bankBalBridge.bridgeId, bankBalBridge);
+
+    const bankCcyBridge: BridgeDefinition = {
+      bridgeId: 'bridge:bank:camt053-to-currency',
+      name: 'Banking CAMT.053 Statement to Currency',
+      sourceSystem: 'CORE_BANKING_ISO20022',
+      sourceField: 'BkToCstmrStmt.Stmt.Bal.Amt.@Ccy',
+      canonicalAttributeId: CANONICAL_ATTRIBUTES.CURRENCY,
+      transformRule: 'UPPERCASE_CODE',
+      version: '1.0.0',
+    };
+    this.bridges.set(bankCcyBridge.bridgeId, bankCcyBridge);
+
     const civilBridge: BridgeDefinition = {
       bridgeId: 'bridge:civil:sql-to-age',
       name: 'Civil Registration SQL to Age',
@@ -370,6 +392,50 @@ export class InMemoryTrustRegistry implements ITrustRegistry {
     };
     this.bridges.set(civilBridge.bridgeId, civilBridge);
 
+    const civilDobBridge: BridgeDefinition = {
+      bridgeId: 'bridge:civil:sql-to-birthdate',
+      name: 'Civil Registration SQL to Birthdate',
+      sourceSystem: 'CIVIL_DATABASE_SQL',
+      sourceField: 'citizens.records.date_of_birth',
+      canonicalAttributeId: CANONICAL_ATTRIBUTES.BIRTHDATE,
+      transformRule: 'DIRECT_MAPPING',
+      version: '1.0.0',
+    };
+    this.bridges.set(civilDobBridge.bridgeId, civilDobBridge);
+
+    const civilDistrictBridge: BridgeDefinition = {
+      bridgeId: 'bridge:civil:sql-to-district',
+      name: 'Civil Registration SQL to District',
+      sourceSystem: 'CIVIL_DATABASE_SQL',
+      sourceField: 'citizens.records.district_name',
+      canonicalAttributeId: CANONICAL_ATTRIBUTES.DISTRICT,
+      transformRule: 'DIRECT_MAPPING',
+      version: '1.0.0',
+    };
+    this.bridges.set(civilDistrictBridge.bridgeId, civilDistrictBridge);
+
+    const civilDomicileBridge: BridgeDefinition = {
+      bridgeId: 'bridge:civil:sql-to-domicile',
+      name: 'Civil Registration SQL to Domicile State',
+      sourceSystem: 'CIVIL_DATABASE_SQL',
+      sourceField: 'citizens.records.state_code',
+      canonicalAttributeId: CANONICAL_ATTRIBUTES.DOMICILE_STATE,
+      transformRule: 'DIRECT_MAPPING',
+      version: '1.0.0',
+    };
+    this.bridges.set(civilDomicileBridge.bridgeId, civilDomicileBridge);
+
+    const civilCitizenshipBridge: BridgeDefinition = {
+      bridgeId: 'bridge:civil:sql-to-citizenship',
+      name: 'Civil Registration SQL to Citizenship',
+      sourceSystem: 'CIVIL_DATABASE_SQL',
+      sourceField: 'citizens.records.nationality_code',
+      canonicalAttributeId: CANONICAL_ATTRIBUTES.CITIZENSHIP,
+      transformRule: 'DIRECT_MAPPING',
+      version: '1.0.0',
+    };
+    this.bridges.set(civilCitizenshipBridge.bridgeId, civilCitizenshipBridge);
+
     const rtoBridge: BridgeDefinition = {
       bridgeId: 'bridge:rto:sql-to-permit',
       name: 'State Transport RTO Database to Permit Status',
@@ -380,6 +446,17 @@ export class InMemoryTrustRegistry implements ITrustRegistry {
       version: '1.0.0',
     };
     this.bridges.set(rtoBridge.bridgeId, rtoBridge);
+
+    const rtoCategoryBridge: BridgeDefinition = {
+      bridgeId: 'bridge:rto:sql-to-license-category',
+      name: 'State Transport RTO Database to License Category',
+      sourceSystem: 'RTO_PERMITS_SQL',
+      sourceField: 'transport_permits.class_cd',
+      canonicalAttributeId: CANONICAL_ATTRIBUTES.LICENSE_CATEGORY,
+      transformRule: 'MAP_LICENSE_CATEGORY',
+      version: '1.0.0',
+    };
+    this.bridges.set(rtoCategoryBridge.bridgeId, rtoCategoryBridge);
 
     // ------------------------------------------------------------------------
     // 5. Seed Adapter Manifests (Metadata describing translation adapters)
@@ -398,6 +475,22 @@ export class InMemoryTrustRegistry implements ITrustRegistry {
     };
     this.adapters.set(bankAdapter.adapterId, bankAdapter);
 
+    const transportSqlAdapter: AdapterManifest = {
+      adapterId: 'adapter:transport:rto-sql',
+      name: 'RTO Transport Relational SQL Adapter',
+      sourceFormat: 'SQL_RELATIONAL',
+      targetSchemaId: 'urn:pramana:schema:trans:permit:v1',
+      version: '1.0.0',
+      supportedAttributes: [
+        CANONICAL_ATTRIBUTES.COMMERCIAL_PERMIT_STATUS,
+        CANONICAL_ATTRIBUTES.LICENSE_CATEGORY,
+        CANONICAL_ATTRIBUTES.DISTRICT,
+        CANONICAL_ATTRIBUTES.DOMICILE_STATE,
+      ],
+      status: 'ACTIVE',
+    };
+    this.adapters.set(transportSqlAdapter.adapterId, transportSqlAdapter);
+
     const civilAdapter: AdapterManifest = {
       adapterId: 'adapter:civil:sql-relational',
       name: 'State Civil Registry SQL Relational Adapter',
@@ -413,6 +506,23 @@ export class InMemoryTrustRegistry implements ITrustRegistry {
       status: 'ACTIVE',
     };
     this.adapters.set(civilAdapter.adapterId, civilAdapter);
+
+    const civilRestAdapter: AdapterManifest = {
+      adapterId: 'adapter:civil:rest-json',
+      name: 'State Civil Registry REST API Adapter',
+      sourceFormat: 'REST_JSON',
+      targetSchemaId: 'urn:pramana:schema:civil:identity:v1',
+      version: '1.0.0',
+      supportedAttributes: [
+        CANONICAL_ATTRIBUTES.AGE,
+        CANONICAL_ATTRIBUTES.BIRTHDATE,
+        CANONICAL_ATTRIBUTES.DOMICILE_STATE,
+        CANONICAL_ATTRIBUTES.DISTRICT,
+        CANONICAL_ATTRIBUTES.CITIZENSHIP,
+      ],
+      status: 'ACTIVE',
+    };
+    this.adapters.set(civilRestAdapter.adapterId, civilRestAdapter);
 
     const transportAdapter: AdapterManifest = {
       adapterId: 'adapter:transport:rest-json',

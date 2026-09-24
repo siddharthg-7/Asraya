@@ -80,6 +80,63 @@ export function validateCredential(input: unknown): VerifiableCredential {
       algorithm: binding['algorithm'] === 'ED25519' ? 'ED25519' : 'BLS12-381-G1',
     },
     claims: record['claims'] as Readonly<Record<string, string | number | boolean>>,
-    signature: record['signature'],
+    signature: record['signature'] as string,
+  };
+}
+
+export function validateMinimalClaimSet(
+  input: unknown,
+): import('../types/credentials.js').MinimalClaimSet {
+  if (typeof input !== 'object' || input === null) {
+    throw new PramanaError(
+      ERROR_CODES.CLAIM_GENERATION_FAILED,
+      'MinimalClaimSet must be a non-null object',
+    );
+  }
+
+  const rec = input as Record<string, unknown>;
+
+  if (typeof rec['schemaId'] !== 'string' || rec['schemaId'].trim() === '') {
+    throw new PramanaError(
+      ERROR_CODES.CLAIM_GENERATION_FAILED,
+      'MinimalClaimSet schemaId must be a non-empty string',
+    );
+  }
+
+  if (typeof rec['issuerDid'] !== 'string' || !rec['issuerDid'].startsWith('did:')) {
+    throw new PramanaError(
+      ERROR_CODES.CLAIM_GENERATION_FAILED,
+      'MinimalClaimSet issuerDid must be a valid DID',
+    );
+  }
+
+  if (typeof rec['subjectId'] !== 'string' || rec['subjectId'].trim() === '') {
+    throw new PramanaError(
+      ERROR_CODES.CLAIM_GENERATION_FAILED,
+      'MinimalClaimSet subjectId must be a non-empty string',
+    );
+  }
+
+  if (typeof rec['claims'] !== 'object' || rec['claims'] === null || Array.isArray(rec['claims'])) {
+    throw new PramanaError(
+      ERROR_CODES.CLAIM_GENERATION_FAILED,
+      'MinimalClaimSet claims must be an object',
+    );
+  }
+
+  if (rec['isMockUnsigned'] !== true) {
+    throw new PramanaError(
+      ERROR_CODES.CLAIM_GENERATION_FAILED,
+      'MinimalClaimSet must have isMockUnsigned: true in Phase 3',
+    );
+  }
+
+  return {
+    schemaId: rec['schemaId'] as string,
+    issuerDid: rec['issuerDid'] as string,
+    subjectId: rec['subjectId'] as string,
+    claims: rec['claims'] as Readonly<Record<string, string | number | boolean>>,
+    issuedAt: typeof rec['issuedAt'] === 'string' ? rec['issuedAt'] : new Date().toISOString(),
+    isMockUnsigned: true,
   };
 }
