@@ -11,7 +11,8 @@ export const Footer: React.FC = () => {
             <span>ĀŚRAYA / PRAMĀṆA PROTOCOL</span>
           </div>
           <p className="text-[#5d6c7b] text-xs max-w-md">
-            Privacy-Preserving Digital Verification Infrastructure. Eliminating wholesale PII ingestion through BBS+ Selective Disclosure and Zero-Knowledge Predicates.
+            Privacy-Preserving Digital Verification Infrastructure. Eliminating wholesale PII
+            ingestion through BBS+ Selective Disclosure and Zero-Knowledge Predicates.
           </p>
         </div>
 
@@ -31,9 +32,9 @@ export const Footer: React.FC = () => {
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pt-6 border-t border-[#dee3e9] text-center text-[#8595a4] text-[11px]">
-        Official Demonstration Platform — Pramāṇa Architectural Specification Reference Implementation.
+        Official Demonstration Platform — Pramāṇa Architectural Specification Reference
+        Implementation.
       </div>
     </footer>
   );
 };
-

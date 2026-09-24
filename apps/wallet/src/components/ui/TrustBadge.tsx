@@ -31,7 +31,10 @@ export const TrustBadge: React.FC<TrustBadgeProps> = ({ type, size = 'md' }) => 
   };
 
   const config = configs[type];
-  const sizeClasses = size === 'sm' ? 'px-2.5 py-0.5 text-xs gap-1 font-semibold' : 'px-3 py-1 text-xs gap-1.5 font-bold';
+  const sizeClasses =
+    size === 'sm'
+      ? 'px-2.5 py-0.5 text-xs gap-1 font-semibold'
+      : 'px-3 py-1 text-xs gap-1.5 font-bold';
 
   return (
     <span className={`inline-flex items-center rounded-full border ${config.bg} ${sizeClasses}`}>
@@ -40,4 +43,3 @@ export const TrustBadge: React.FC<TrustBadgeProps> = ({ type, size = 'md' }) => 
     </span>
   );
 };
-

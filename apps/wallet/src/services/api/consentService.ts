@@ -1,7 +1,9 @@
 import { pramanaService } from '../mock/mockPramanaService';
 
 export const consentService = {
-  async approveConsent(requestId: string): Promise<{ status: 'GENERATING_PROOF'; requestId: string }> {
+  async approveConsent(
+    requestId: string,
+  ): Promise<{ status: 'GENERATING_PROOF'; requestId: string }> {
     return pramanaService.approveRequest(requestId);
   },
 

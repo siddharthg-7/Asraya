@@ -16,7 +16,8 @@ export const PrivacyComparisonVisualizer: React.FC = () => {
             Why ĀŚRAYA is Different
           </h2>
           <p className="text-[#444950] text-sm sm:text-base">
-            Compare the information exchanged during a conventional verification flow with a minimal-proof flow.
+            Compare the information exchanged during a conventional verification flow with a
+            minimal-proof flow.
           </p>
         </div>
 
@@ -87,7 +88,9 @@ export const PrivacyComparisonVisualizer: React.FC = () => {
                   </td>
                 </tr>
                 <tr>
-                  <td className="py-5 px-6 sm:px-8 font-bold text-[#0a1317]">Citizen Consent Model</td>
+                  <td className="py-5 px-6 sm:px-8 font-bold text-[#0a1317]">
+                    Citizen Consent Model
+                  </td>
                   <td className="py-5 px-6 sm:px-8 text-[#e41e3f]">
                     Blanket document upload consent
                   </td>
@@ -106,7 +109,7 @@ export const PrivacyComparisonVisualizer: React.FC = () => {
                 <span>Traditional Verifier Database Record (Harvested)</span>
               </h4>
               <pre className="p-5 bg-[#0a1317] text-[#fce8e6] rounded-2xl text-xs font-mono overflow-x-auto leading-relaxed border border-[#0a1317]">
-{`{
+                {`{
   "record_id": "rec_9918231",
   "citizen_full_name": "Aditya Sharma",
   "citizen_dob": "1996-08-14",
@@ -125,7 +128,7 @@ export const PrivacyComparisonVisualizer: React.FC = () => {
                 <span>Āśraya Minimal Audit Record (Zero PII)</span>
               </h4>
               <pre className="p-5 bg-[#0a1317] text-[#ceead6] rounded-2xl text-xs font-mono overflow-x-auto leading-relaxed border border-[#0a1317]">
-{`{
+                {`{
   "session_id": "sess_8f92a401",
   "verifier_did": "did:asraya:verifier:municipal-ev-dept",
   "verdict": "VALID_PROOF",
@@ -146,4 +149,3 @@ export const PrivacyComparisonVisualizer: React.FC = () => {
     </section>
   );
 };
-

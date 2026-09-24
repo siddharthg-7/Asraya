@@ -20,7 +20,8 @@ export const SecurityAttackSimulator: React.FC = () => {
       targetTier: 'Tier 4 Transport Pipeline',
       status: 'DEFENDED',
       detail: 'Replay attempt detected for Nonce 0x8f9a2b7c4d1e902a.',
-      protocolDefense: 'Nonce bloom filter invalidated duplicate transport request. Proof rejected in 0.8ms.',
+      protocolDefense:
+        'Nonce bloom filter invalidated duplicate transport request. Proof rejected in 0.8ms.',
     },
   ]);
 
@@ -31,7 +32,7 @@ export const SecurityAttackSimulator: React.FC = () => {
     attackName: string,
     targetTier: string,
     detail: string,
-    protocolDefense: string
+    protocolDefense: string,
   ) => {
     setActiveAttack(scenarioKey);
 
@@ -67,7 +68,8 @@ export const SecurityAttackSimulator: React.FC = () => {
               </span>
             </h3>
             <p className="text-xs text-slate-400">
-              Interactive attack vector trigger suite to test ĀŚRAYA protocol resilience against tampering, replay, and over-disclosure
+              Interactive attack vector trigger suite to test ĀŚRAYA protocol resilience against
+              tampering, replay, and over-disclosure
             </p>
           </div>
         </div>
@@ -105,7 +107,7 @@ export const SecurityAttackSimulator: React.FC = () => {
                 'Spent Nonce Replay Attack',
                 'Tier 4 Ephemeral Transport',
                 'Attacker re-sent previous valid proof payload with spent nonce 0x8f9a2b7c.',
-                'REPLAY DEFENSE PASSED: Verifier single-use nonce register rejected payload.'
+                'REPLAY DEFENSE PASSED: Verifier single-use nonce register rejected payload.',
               )
             }
             disabled={activeAttack === 'replay'}
@@ -141,7 +143,7 @@ export const SecurityAttackSimulator: React.FC = () => {
                 'Cryptographic Proof Bit-Flip',
                 'Tier 2 Minimization Engine',
                 'Attacker modified 4 bytes in G1 proof point to fake income eligibility.',
-                'VERIFICATION FAILED: Elliptic curve pairing evaluation returned FALSE.'
+                'VERIFICATION FAILED: Elliptic curve pairing evaluation returned FALSE.',
               )
             }
             disabled={activeAttack === 'tamper'}
@@ -177,7 +179,7 @@ export const SecurityAttackSimulator: React.FC = () => {
                 'Expired Purpose Contract',
                 'Tier 3 Bounded Protocol',
                 'Citizen wallet received contract request expired 2 hours ago.',
-                'CONTRACT EXPIRED: Wallet rejected proof generation request at boundary.'
+                'CONTRACT EXPIRED: Wallet rejected proof generation request at boundary.',
               )
             }
             disabled={activeAttack === 'expired'}

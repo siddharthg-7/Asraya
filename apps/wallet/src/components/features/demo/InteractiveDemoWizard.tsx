@@ -4,10 +4,27 @@ import { Card } from '../../ui/Card';
 import { Button } from '../../ui/Button';
 import { Badge } from '../../ui/Badge';
 import { TrustBadge } from '../../ui/TrustBadge';
-import { VerificationRequest, VerificationResult, AuditReceipt, VerifierAuditRecord } from '../../../types/protocol';
+import {
+  VerificationRequest,
+  VerificationResult,
+  AuditReceipt,
+  VerifierAuditRecord,
+} from '../../../types/protocol';
 import { MOCK_PENDING_REQUESTS } from '../../../data/mockData';
 import { pramanaService } from '../../../services/mock/mockPramanaService';
-import { ShieldCheck, Building2, User, Cpu, CheckCircle2, ArrowRight, RotateCcw, Database, Sparkles, LayoutGrid, PlayCircle } from 'lucide-react';
+import {
+  ShieldCheck,
+  Building2,
+  User,
+  Cpu,
+  CheckCircle2,
+  ArrowRight,
+  RotateCcw,
+  Database,
+  Sparkles,
+  LayoutGrid,
+  PlayCircle,
+} from 'lucide-react';
 
 export const InteractiveDemoWizard: React.FC = () => {
   const [demoMode, setDemoMode] = useState<'split' | 'wizard'>('split');
@@ -53,7 +70,9 @@ export const InteractiveDemoWizard: React.FC = () => {
           <button
             onClick={() => setDemoMode('split')}
             className={`px-3 py-1.5 font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
-              demoMode === 'split' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+              demoMode === 'split'
+                ? 'bg-indigo-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             <LayoutGrid className="w-3.5 h-3.5" />
@@ -62,7 +81,9 @@ export const InteractiveDemoWizard: React.FC = () => {
           <button
             onClick={() => setDemoMode('wizard')}
             className={`px-3 py-1.5 font-semibold rounded-lg transition-all cursor-pointer flex items-center gap-1.5 ${
-              demoMode === 'wizard' ? 'bg-indigo-600 text-white shadow-md' : 'text-slate-400 hover:text-slate-200'
+              demoMode === 'wizard'
+                ? 'bg-indigo-600 text-white shadow-md'
+                : 'text-slate-400 hover:text-slate-200'
             }`}
           >
             <PlayCircle className="w-3.5 h-3.5" />
@@ -84,10 +105,13 @@ export const InteractiveDemoWizard: React.FC = () => {
                 </div>
                 <div>
                   <div className="flex items-center gap-2">
-                    <h2 className="text-lg font-bold text-white">Interactive Live Judge Demonstration</h2>
+                    <h2 className="text-lg font-bold text-white">
+                      Interactive Live Judge Demonstration
+                    </h2>
                   </div>
                   <p className="text-xs text-slate-300 mt-0.5">
-                    Simulates the entire end-to-end Āśraya lifecycle: Verifier Request → Citizen Consent → ZK Proof → Verifier Receipt.
+                    Simulates the entire end-to-end Āśraya lifecycle: Verifier Request → Citizen
+                    Consent → ZK Proof → Verifier Receipt.
                   </p>
                 </div>
               </div>
@@ -110,8 +134,8 @@ export const InteractiveDemoWizard: React.FC = () => {
                 currentStep === 1
                   ? 'bg-indigo-950 text-indigo-300 border-indigo-500/50 shadow-md'
                   : currentStep > 1
-                  ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
-                  : 'bg-slate-950 text-slate-500 border-slate-800'
+                    ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
+                    : 'bg-slate-950 text-slate-500 border-slate-800'
               }`}
             >
               <span>1. Verifier Asks</span>
@@ -121,8 +145,8 @@ export const InteractiveDemoWizard: React.FC = () => {
                 currentStep === 2
                   ? 'bg-indigo-950 text-indigo-300 border-indigo-500/50 shadow-md'
                   : currentStep > 2
-                  ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
-                  : 'bg-slate-950 text-slate-500 border-slate-800'
+                    ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
+                    : 'bg-slate-950 text-slate-500 border-slate-800'
               }`}
             >
               <span>2. Citizen Consents</span>
@@ -132,8 +156,8 @@ export const InteractiveDemoWizard: React.FC = () => {
                 currentStep === 3
                   ? 'bg-indigo-950 text-indigo-300 border-indigo-500/50 shadow-md'
                   : currentStep > 3
-                  ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
-                  : 'bg-slate-950 text-slate-500 border-slate-800'
+                    ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
+                    : 'bg-slate-950 text-slate-500 border-slate-800'
               }`}
             >
               <span>3. Wallet Proves</span>
@@ -155,9 +179,12 @@ export const InteractiveDemoWizard: React.FC = () => {
               <div className="flex items-center gap-3 border-b border-slate-800 pb-4">
                 <Building2 className="w-6 h-6 text-indigo-400" />
                 <div>
-                  <h3 className="text-lg font-bold text-white">STEP 1: Verifier Dispatches Bounded Question</h3>
+                  <h3 className="text-lg font-bold text-white">
+                    STEP 1: Verifier Dispatches Bounded Question
+                  </h3>
                   <p className="text-xs text-slate-400">
-                    Municipal EV Subsidy Office dispatches a signed predicate request for EV fleet eligibility.
+                    Municipal EV Subsidy Office dispatches a signed predicate request for EV fleet
+                    eligibility.
                   </p>
                 </div>
               </div>
@@ -172,7 +199,9 @@ export const InteractiveDemoWizard: React.FC = () => {
                   <span className="text-slate-200">{activeRequest.purpose}</span>
                 </div>
                 <div>
-                  <span className="text-slate-400 block mb-1">Requested Predicates (3 Bounded Questions):</span>
+                  <span className="text-slate-400 block mb-1">
+                    Requested Predicates (3 Bounded Questions):
+                  </span>
                   <ul className="space-y-1 list-disc list-inside text-indigo-300 font-mono">
                     <li>Valid Commercial EV Permit = TRUE</li>
                     <li>Annual Income &lt;= ₹3,00,000</li>
@@ -201,9 +230,12 @@ export const InteractiveDemoWizard: React.FC = () => {
                 <div className="flex items-center gap-3">
                   <User className="w-6 h-6 text-indigo-400" />
                   <div>
-                    <h3 className="text-lg font-bold text-white">STEP 2: Citizen Reviews & Grants Consent</h3>
+                    <h3 className="text-lg font-bold text-white">
+                      STEP 2: Citizen Reviews & Grants Consent
+                    </h3>
                     <p className="text-xs text-slate-400">
-                      Wallet renders the bounded question contract. Citizen sees zero raw document upload.
+                      Wallet renders the bounded question contract. Citizen sees zero raw document
+                      upload.
                     </p>
                   </div>
                 </div>
@@ -216,7 +248,8 @@ export const InteractiveDemoWizard: React.FC = () => {
                   <span>Āśraya Privacy Minimization Assurance</span>
                 </div>
                 <p className="text-slate-300">
-                  Your underlying documents stay inside your hardware enclave. Only boolean mathematical answers are generated.
+                  Your underlying documents stay inside your hardware enclave. Only boolean
+                  mathematical answers are generated.
                 </p>
               </div>
 
@@ -240,7 +273,9 @@ export const InteractiveDemoWizard: React.FC = () => {
           {currentStep === 3 && (
             <Card variant="subtle" className="text-center p-12">
               <Cpu className="w-12 h-12 text-indigo-400 animate-spin mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-white mb-2">Simulating BBS+ ZK Proof Generation</h3>
+              <h3 className="text-xl font-bold text-white mb-2">
+                Simulating BBS+ ZK Proof Generation
+              </h3>
               <p className="text-xs text-slate-400 max-w-sm mx-auto font-mono">
                 Evaluating predicates locally against certified claims...
               </p>
@@ -250,7 +285,10 @@ export const InteractiveDemoWizard: React.FC = () => {
           {/* STEP 4: VERIFICATION RESULT & STORAGE AUDIT */}
           {currentStep === 4 && demoResult && (
             <div className="space-y-6">
-              <Card variant="bordered" className="border-emerald-500/40 bg-emerald-950/20 p-8 space-y-6">
+              <Card
+                variant="bordered"
+                className="border-emerald-500/40 bg-emerald-950/20 p-8 space-y-6"
+              >
                 <div className="flex items-center justify-between border-b border-emerald-500/30 pb-4">
                   <div className="flex items-center gap-3">
                     <CheckCircle2 className="w-7 h-7 text-emerald-400" />
@@ -266,12 +304,19 @@ export const InteractiveDemoWizard: React.FC = () => {
 
                 {/* Predicate Answers Grid */}
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  {demoResult.result.predicateResults.map((pr: { predicateId: string; label: string; satisfied: boolean }) => (
-                    <div key={pr.predicateId} className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs">
-                      <span className="text-slate-400 block mb-1">{pr.label}</span>
-                      <span className="text-emerald-400 font-mono font-bold text-sm">✓ PASSED (TRUE)</span>
-                    </div>
-                  ))}
+                  {demoResult.result.predicateResults.map(
+                    (pr: { predicateId: string; label: string; satisfied: boolean }) => (
+                      <div
+                        key={pr.predicateId}
+                        className="p-3 bg-slate-950 rounded-xl border border-slate-800 text-xs"
+                      >
+                        <span className="text-slate-400 block mb-1">{pr.label}</span>
+                        <span className="text-emerald-400 font-mono font-bold text-sm">
+                          ✓ PASSED (TRUE)
+                        </span>
+                      </div>
+                    ),
+                  )}
                 </div>
 
                 {/* Verifier Storage View */}
@@ -304,7 +349,11 @@ export const InteractiveDemoWizard: React.FC = () => {
                   <span className="text-xs text-slate-400 font-mono">
                     Receipt Hash: {demoResult.receipt.receiptHash.substring(0, 32)}...
                   </span>
-                  <Button variant="primary" onClick={handleReset} leftIcon={<RotateCcw className="w-4 h-4" />}>
+                  <Button
+                    variant="primary"
+                    onClick={handleReset}
+                    leftIcon={<RotateCcw className="w-4 h-4" />}
+                  >
                     Run Another Demo Cycle
                   </Button>
                 </div>

@@ -79,7 +79,8 @@ export const MOCK_PENDING_REQUESTS: VerificationRequest[] = [
     nonce: '0x8f9a2b7c4d1e902a3f5b7c8d9e0f1a2b',
     tier: 'TIER_A_BBS_PLUS',
     status: 'PENDING',
-    privacyNotice: 'Āśraya Zero-Knowledge Guarantee: Your raw document numbers, exact income figures, and home address WILL NOT be shared. Only boolean proof answers are sent.',
+    privacyNotice:
+      'Āśraya Zero-Knowledge Guarantee: Your raw document numbers, exact income figures, and home address WILL NOT be shared. Only boolean proof answers are sent.',
     predicates: [
       {
         id: 'pred-1',
@@ -87,7 +88,8 @@ export const MOCK_PENDING_REQUESTS: VerificationRequest[] = [
         label: 'Valid Commercial EV Permit',
         operator: 'IS_TRUE',
         targetValue: true,
-        description: 'Verify active commercial vehicle permit without revealing permit registration code',
+        description:
+          'Verify active commercial vehicle permit without revealing permit registration code',
       },
       {
         id: 'pred-2',
@@ -95,7 +97,8 @@ export const MOCK_PENDING_REQUESTS: VerificationRequest[] = [
         label: 'Annual Income Threshold',
         operator: 'LTE',
         targetValue: 300000,
-        description: 'Verify annual income is below ₹3,00,000 without revealing exact salary figure',
+        description:
+          'Verify annual income is below ₹3,00,000 without revealing exact salary figure',
       },
       {
         id: 'pred-3',

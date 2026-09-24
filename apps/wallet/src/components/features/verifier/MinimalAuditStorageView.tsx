@@ -43,7 +43,8 @@ export const MinimalAuditStorageView: React.FC<MinimalAuditStorageViewProps> = (
               <h3 className="text-base font-bold text-white">Verifier Minimal Audit Log Storage</h3>
             </div>
             <p className="text-xs text-slate-400 mt-1">
-              Āśraya Minimal Storage Model: Strictly stores verdict, session ID, timestamp, and receipt hash. ZERO raw PII stored.
+              Āśraya Minimal Storage Model: Strictly stores verdict, session ID, timestamp, and
+              receipt hash. ZERO raw PII stored.
             </p>
           </div>
 
@@ -84,7 +85,9 @@ export const MinimalAuditStorageView: React.FC<MinimalAuditStorageViewProps> = (
                 {records.map((rec) => (
                   <tr key={rec.sessionId} className="hover:bg-slate-900/50">
                     <td className="py-3 px-3 text-indigo-300 font-bold">{rec.sessionId}</td>
-                    <td className="py-3 px-3 text-slate-300 font-sans max-w-xs truncate">{rec.purpose}</td>
+                    <td className="py-3 px-3 text-slate-300 font-sans max-w-xs truncate">
+                      {rec.purpose}
+                    </td>
                     <td className="py-3 px-3">
                       {rec.verdict === 'VALID_PROOF' ? (
                         <Badge variant="emerald" icon={<CheckCircle2 className="w-3 h-3" />}>
@@ -101,7 +104,10 @@ export const MinimalAuditStorageView: React.FC<MinimalAuditStorageViewProps> = (
                         0 ATTRIBUTES (0 BYTES)
                       </span>
                     </td>
-                    <td className="py-3 px-3 text-slate-400 truncate max-w-[120px]" title={rec.receiptHash}>
+                    <td
+                      className="py-3 px-3 text-slate-400 truncate max-w-[120px]"
+                      title={rec.receiptHash}
+                    >
                       {rec.receiptHash}
                     </td>
                     <td className="py-3 px-3 text-right">

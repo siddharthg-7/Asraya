@@ -106,7 +106,10 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
         <div className="p-3 bg-slate-950/60 rounded-lg border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Proof Engine: <strong className="text-slate-200">BBS+ Selective Disclosure (Tier A)</strong></span>
+            <span>
+              Proof Engine:{' '}
+              <strong className="text-slate-200">BBS+ Selective Disclosure (Tier A)</strong>
+            </span>
           </div>
           <div className="flex items-center gap-1 text-slate-400 font-mono">
             <span>Nonce:</span>
@@ -116,11 +119,7 @@ export const ConsentModal: React.FC<ConsentModalProps> = ({
 
         {/* Action Buttons */}
         <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-800">
-          <Button
-            variant="outline"
-            onClick={() => onDecline(request.id)}
-            disabled={isLoading}
-          >
+          <Button variant="outline" onClick={() => onDecline(request.id)} disabled={isLoading}>
             Decline Request
           </Button>
 

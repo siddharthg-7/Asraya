@@ -57,13 +57,20 @@ export const ProofGenerationView: React.FC<ProofGenerationViewProps> = ({
 
   const getStepIndex = (state: ProofStateMachineState): number => {
     switch (state) {
-      case 'REQUEST_RECEIVED': return 0;
-      case 'CONSENT_PENDING': return 0;
-      case 'CONSENT_GRANTED': return 1;
-      case 'PREPARING': return 2;
-      case 'GENERATING': return 3;
-      case 'READY': return 4;
-      case 'FAILED': return -1;
+      case 'REQUEST_RECEIVED':
+        return 0;
+      case 'CONSENT_PENDING':
+        return 0;
+      case 'CONSENT_GRANTED':
+        return 1;
+      case 'PREPARING':
+        return 2;
+      case 'GENERATING':
+        return 3;
+      case 'READY':
+        return 4;
+      case 'FAILED':
+        return -1;
     }
   };
 
@@ -101,8 +108,8 @@ export const ProofGenerationView: React.FC<ProofGenerationViewProps> = ({
                   isCompleted
                     ? 'text-emerald-300 font-medium'
                     : isCurrent
-                    ? 'text-indigo-300 font-semibold'
-                    : 'text-slate-500'
+                      ? 'text-indigo-300 font-semibold'
+                      : 'text-slate-500'
                 }`}
               >
                 {isCompleted ? (

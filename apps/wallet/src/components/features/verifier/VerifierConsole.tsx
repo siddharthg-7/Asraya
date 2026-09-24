@@ -6,7 +6,12 @@ import { RequestBuilder } from './RequestBuilder';
 import { MinimalAuditStorageView } from './MinimalAuditStorageView';
 import { ZkBenchmarkPanel } from '../demo/ZkBenchmarkPanel';
 import { SecurityAttackSimulator } from '../demo/SecurityAttackSimulator';
-import { VerificationRequest, VerificationResult, VerifierAuditRecord, BoundedPredicate } from '../../../types/protocol';
+import {
+  VerificationRequest,
+  VerificationResult,
+  VerifierAuditRecord,
+  BoundedPredicate,
+} from '../../../types/protocol';
 import { Building2, ShieldCheck, CheckCircle2, PlayCircle, Cpu, ShieldAlert } from 'lucide-react';
 
 export interface VerifierConsoleProps {
@@ -29,7 +34,9 @@ export const VerifierConsole: React.FC<VerifierConsoleProps> = ({
   onCreateRequest,
   onSwitchToCitizenWallet,
 }) => {
-  const [activeTab, setActiveTab] = useState<'create' | 'audit' | 'active' | 'benchmarks' | 'security'>('create');
+  const [activeTab, setActiveTab] = useState<
+    'create' | 'audit' | 'active' | 'benchmarks' | 'security'
+  >('create');
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-fade-in">
@@ -91,7 +98,9 @@ export const VerifierConsole: React.FC<VerifierConsoleProps> = ({
               <span className="text-indigo-300 font-bold">{lastResult.tierUsed}</span>
             </div>
             <div className="p-3 bg-slate-950/80 rounded-lg border border-slate-800">
-              <span className="text-slate-400 block text-[10px] uppercase">Raw Attributes Disclosed</span>
+              <span className="text-slate-400 block text-[10px] uppercase">
+                Raw Attributes Disclosed
+              </span>
               <span className="text-emerald-400 font-bold text-sm">0 Attributes (ZERO PII)</span>
             </div>
           </div>
@@ -102,17 +111,19 @@ export const VerifierConsole: React.FC<VerifierConsoleProps> = ({
               Disclosed Bounded Answers
             </h4>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
-              {lastResult.predicateResults.map((pr: { predicateId: string; label: string; satisfied: boolean }) => (
-                <div
-                  key={pr.predicateId}
-                  className="p-2.5 bg-slate-950/90 rounded-lg border border-slate-800 flex items-center justify-between"
-                >
-                  <span className="text-slate-300 font-medium">{pr.label}</span>
-                  <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30">
-                    {pr.satisfied ? 'PASSED (TRUE)' : 'FAILED'}
-                  </span>
-                </div>
-              ))}
+              {lastResult.predicateResults.map(
+                (pr: { predicateId: string; label: string; satisfied: boolean }) => (
+                  <div
+                    key={pr.predicateId}
+                    className="p-2.5 bg-slate-950/90 rounded-lg border border-slate-800 flex items-center justify-between"
+                  >
+                    <span className="text-slate-300 font-medium">{pr.label}</span>
+                    <span className="px-2 py-0.5 rounded font-mono text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+                      {pr.satisfied ? 'PASSED (TRUE)' : 'FAILED'}
+                    </span>
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </Card>

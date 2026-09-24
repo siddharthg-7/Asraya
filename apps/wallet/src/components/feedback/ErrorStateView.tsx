@@ -3,7 +3,15 @@ import { Card } from '../ui/Card';
 import { Button } from '../ui/Button';
 import { Badge } from '../ui/Badge';
 import { ProtocolErrorType } from '../../types/protocol';
-import { AlertTriangle, Clock, XCircle, RefreshCw, ArrowLeft, WifiOff, ShieldAlert } from 'lucide-react';
+import {
+  AlertTriangle,
+  Clock,
+  XCircle,
+  RefreshCw,
+  ArrowLeft,
+  WifiOff,
+  ShieldAlert,
+} from 'lucide-react';
 
 export interface ErrorStateViewProps {
   type: ProtocolErrorType;
@@ -26,25 +34,29 @@ export const ErrorStateView: React.FC<ErrorStateViewProps> = ({
   > = {
     EXPIRED_REQUEST: {
       defaultTitle: 'Verification Request Expired',
-      defaultMsg: 'This verification request timed out per protocol validity constraints. Please ask the verifier to issue a fresh request.',
+      defaultMsg:
+        'This verification request timed out per protocol validity constraints. Please ask the verifier to issue a fresh request.',
       icon: <Clock className="w-10 h-10 text-amber-400" />,
       badge: 'REQUEST EXPIRED',
     },
     INVALID_REQUEST: {
       defaultTitle: 'Invalid Verification Contract',
-      defaultMsg: 'The verifier request payload signature or schema formatting is corrupted or unverified.',
+      defaultMsg:
+        'The verifier request payload signature or schema formatting is corrupted or unverified.',
       icon: <AlertTriangle className="w-10 h-10 text-rose-400" />,
       badge: 'SCHEMA ERROR',
     },
     CONSENT_DECLINED: {
       defaultTitle: 'Request Declined by Citizen',
-      defaultMsg: 'You declined to issue a zero-knowledge proof for this request. No data or proof was sent to the verifier.',
+      defaultMsg:
+        'You declined to issue a zero-knowledge proof for this request. No data or proof was sent to the verifier.',
       icon: <XCircle className="w-10 h-10 text-slate-400" />,
       badge: 'CONSENT DECLINED',
     },
     PROOF_GENERATION_FAILED: {
       defaultTitle: 'Proof Generation Interrupted',
-      defaultMsg: 'Local predicate execution failed inside the hardware enclave. Ensure required certified credentials are valid.',
+      defaultMsg:
+        'Local predicate execution failed inside the hardware enclave. Ensure required certified credentials are valid.',
       icon: <ShieldAlert className="w-10 h-10 text-rose-400" />,
       badge: 'PROOF FAILED',
     },
@@ -87,13 +99,23 @@ export const ErrorStateView: React.FC<ErrorStateViewProps> = ({
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-4 border-t border-slate-800">
           {onBackToWallet && (
-            <Button variant="outline" size="sm" onClick={onBackToWallet} leftIcon={<ArrowLeft className="w-4 h-4" />}>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={onBackToWallet}
+              leftIcon={<ArrowLeft className="w-4 h-4" />}
+            >
               Return to Wallet
             </Button>
           )}
 
           {onRecovery && (
-            <Button variant="primary" size="sm" onClick={onRecovery} leftIcon={<RefreshCw className="w-4 h-4" />}>
+            <Button
+              variant="primary"
+              size="sm"
+              onClick={onRecovery}
+              leftIcon={<RefreshCw className="w-4 h-4" />}
+            >
               Retry Action
             </Button>
           )}

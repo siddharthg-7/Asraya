@@ -59,7 +59,8 @@ class MockPramanaService implements IPramanaService {
       nonce: `0x${Math.random().toString(16).substring(2)}${Math.random().toString(16).substring(2)}`,
       tier: 'TIER_A_BBS_PLUS',
       status: 'PENDING',
-      privacyNotice: 'Āśraya Guarantee: Bounded question proof requested. ZERO raw credentials or PII transferred.',
+      privacyNotice:
+        'Āśraya Guarantee: Bounded question proof requested. ZERO raw credentials or PII transferred.',
       predicates: params.predicates.map((p, idx) => ({
         ...p,
         id: `pred-custom-${idx + 1}-${Date.now()}`,
@@ -70,7 +71,9 @@ class MockPramanaService implements IPramanaService {
     return newRequest;
   }
 
-  async approveRequest(requestId: string): Promise<{ status: 'GENERATING_PROOF'; requestId: string }> {
+  async approveRequest(
+    requestId: string,
+  ): Promise<{ status: 'GENERATING_PROOF'; requestId: string }> {
     await this.simulateNetworkDelay(300);
     const req = this.requests.find((r) => r.id === requestId);
     if (req) {

@@ -54,11 +54,17 @@ export const AuditReceiptsList: React.FC<AuditReceiptsListProps> = ({ receipts }
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 bg-slate-950 p-3 rounded-lg border border-slate-800 text-xs font-mono">
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase">Predicates Disclosed</span>
-                <span className="text-indigo-300 font-bold">{rcpt.disclosedPredicatesCount} Bounded Answers</span>
+                <span className="text-slate-400 block text-[10px] uppercase">
+                  Predicates Disclosed
+                </span>
+                <span className="text-indigo-300 font-bold">
+                  {rcpt.disclosedPredicatesCount} Bounded Answers
+                </span>
               </div>
               <div>
-                <span className="text-slate-400 block text-[10px] uppercase">Raw Attributes Exposed</span>
+                <span className="text-slate-400 block text-[10px] uppercase">
+                  Raw Attributes Exposed
+                </span>
                 <span className="text-emerald-400 font-bold">0 Attributes (STRICT INVARIANT)</span>
               </div>
               <div>
@@ -68,8 +74,12 @@ export const AuditReceiptsList: React.FC<AuditReceiptsListProps> = ({ receipts }
             </div>
 
             <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 bg-slate-950/60 p-2 rounded border border-slate-800">
-              <span className="truncate max-w-xs sm:max-w-md">Receipt Hash: {rcpt.receiptHash}</span>
-              <span className="text-indigo-400 text-[10px] font-bold uppercase">CRYPTOGRAPHIC RECEIPT</span>
+              <span className="truncate max-w-xs sm:max-w-md">
+                Receipt Hash: {rcpt.receiptHash}
+              </span>
+              <span className="text-indigo-400 text-[10px] font-bold uppercase">
+                CRYPTOGRAPHIC RECEIPT
+              </span>
             </div>
           </Card>
         ))

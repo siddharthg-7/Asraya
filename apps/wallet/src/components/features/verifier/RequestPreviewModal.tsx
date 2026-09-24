@@ -46,8 +46,12 @@ export const RequestPreviewModal: React.FC<RequestPreviewModalProps> = ({
             <span className="font-bold text-white text-sm">{verifierName}</span>
             <TrustBadge type="zero-pii" size="sm" />
           </div>
-          <p className="text-slate-400">Purpose: <span className="text-slate-200">{purpose}</span></p>
-          <p className="text-slate-400 font-mono">Code: <span className="text-indigo-300">{purposeCode}</span></p>
+          <p className="text-slate-400">
+            Purpose: <span className="text-slate-200">{purpose}</span>
+          </p>
+          <p className="text-slate-400 font-mono">
+            Code: <span className="text-indigo-300">{purposeCode}</span>
+          </p>
         </div>
 
         {/* Predicates requested */}
@@ -59,7 +63,10 @@ export const RequestPreviewModal: React.FC<RequestPreviewModalProps> = ({
 
           <div className="space-y-2">
             {predicates.map((p, i) => (
-              <div key={i} className="p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs space-y-1">
+              <div
+                key={i}
+                className="p-3 bg-slate-950 border border-slate-800 rounded-xl text-xs space-y-1"
+              >
                 <div className="flex items-center gap-2">
                   <span className="font-semibold text-white">{p.label}</span>
                   <span className="font-mono text-[10px] bg-indigo-950 text-indigo-300 px-2 py-0.5 rounded border border-indigo-500/30">
@@ -79,7 +86,8 @@ export const RequestPreviewModal: React.FC<RequestPreviewModalProps> = ({
             <span>Educational Guarantee</span>
           </div>
           <p className="text-slate-300 leading-relaxed">
-            You are asking the citizen to prove these bounded conditions locally. You will receive ONLY boolean proof answers, zero underlying documents.
+            You are asking the citizen to prove these bounded conditions locally. You will receive
+            ONLY boolean proof answers, zero underlying documents.
           </p>
         </div>
 

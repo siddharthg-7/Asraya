@@ -1,5 +1,14 @@
 import React, { useState } from 'react';
-import { X, CheckCircle, AlertTriangle, FileText, Download, Upload, ShieldCheck, Key } from 'lucide-react';
+import {
+  X,
+  CheckCircle,
+  AlertTriangle,
+  FileText,
+  Download,
+  Upload,
+  ShieldCheck,
+  Key,
+} from 'lucide-react';
 import { AuditReceipt } from '../../../types/protocol';
 import { downloadAuditReceipt } from '../../../utils/receiptExporter';
 
@@ -15,17 +24,17 @@ export const AuditReceiptInspectorModal: React.FC<AuditReceiptInspectorModalProp
   initialReceipt,
 }) => {
   const [inputJson, setInputJson] = useState<string>(
-    initialReceipt ? JSON.stringify(initialReceipt, null, 2) : ''
+    initialReceipt ? JSON.stringify(initialReceipt, null, 2) : '',
   );
-  const [inspectedReceipt, setInspectedReceipt] = useState<AuditReceipt | null>(initialReceipt || null);
+  const [inspectedReceipt, setInspectedReceipt] = useState<AuditReceipt | null>(
+    initialReceipt || null,
+  );
   const [verificationResult, setVerificationResult] = useState<{
     status: 'IDLE' | 'VALID' | 'INVALID';
     message: string;
   }>({
     status: initialReceipt ? 'VALID' : 'IDLE',
-    message: initialReceipt
-      ? 'Receipt signature verified against Trust Registry Root DID.'
-      : '',
+    message: initialReceipt ? 'Receipt signature verified against Trust Registry Root DID.' : '',
   });
 
   if (!isOpen) return null;
@@ -46,18 +55,20 @@ export const AuditReceiptInspectorModal: React.FC<AuditReceiptInspectorModalProp
         setInspectedReceipt(null);
         setVerificationResult({
           status: 'INVALID',
-          message: 'Malformed audit receipt. Missing required cryptographic signature or receipt hash.',
+          message:
+            'Malformed audit receipt. Missing required cryptographic signature or receipt hash.',
         });
         return;
       }
 
       setInspectedReceipt(receiptData);
-      
+
       // Invariant check: rawAttributesExposed must be 0
       if (receiptData.rawAttributesExposed !== 0) {
         setVerificationResult({
           status: 'INVALID',
-          message: 'CRITICAL INVARIANT VIOLATION: Audit receipt indicates raw attributes were exposed!',
+          message:
+            'CRITICAL INVARIANT VIOLATION: Audit receipt indicates raw attributes were exposed!',
         });
       } else {
         setVerificationResult({
@@ -96,8 +107,12 @@ export const AuditReceiptInspectorModal: React.FC<AuditReceiptInspectorModalProp
               <ShieldCheck className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-bold text-slate-100">Audit Receipt Inspector & Verifier</h3>
-              <p className="text-xs text-slate-400">Validate cryptographic receipts and non-custodial zero-storage invariant</p>
+              <h3 className="text-lg font-bold text-slate-100">
+                Audit Receipt Inspector & Verifier
+              </h3>
+              <p className="text-xs text-slate-400">
+                Validate cryptographic receipts and non-custodial zero-storage invariant
+              </p>
             </div>
           </div>
           <button
@@ -119,12 +134,7 @@ export const AuditReceiptInspectorModal: React.FC<AuditReceiptInspectorModalProp
               <label className="cursor-pointer text-xs text-cyan-400 hover:text-cyan-300 flex items-center space-x-1 font-medium">
                 <Upload className="w-3.5 h-3.5" />
                 <span>Upload .json</span>
-                <input
-                  type="file"
-                  accept=".json"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
+                <input type="file" accept=".json" onChange={handleFileUpload} className="hidden" />
               </label>
             </div>
             <textarea
@@ -185,15 +195,21 @@ export const AuditReceiptInspectorModal: React.FC<AuditReceiptInspectorModalProp
                 </div>
                 <div>
                   <span className="text-slate-500 block">Timestamp</span>
-                  <span className="text-slate-200">{new Date(inspectedReceipt.timestamp).toLocaleString()}</span>
+                  <span className="text-slate-200">
+                    {new Date(inspectedReceipt.timestamp).toLocaleString()}
+                  </span>
                 </div>
                 <div>
                   <span className="text-slate-500 block">Citizen Wallet DID</span>
-                  <span className="font-mono text-cyan-400 truncate block">{inspectedReceipt.citizenWalletDid}</span>
+                  <span className="font-mono text-cyan-400 truncate block">
+                    {inspectedReceipt.citizenWalletDid}
+                  </span>
                 </div>
                 <div>
                   <span className="text-slate-500 block">Verifier DID</span>
-                  <span className="font-mono text-slate-300 truncate block">{inspectedReceipt.verifierDid}</span>
+                  <span className="font-mono text-slate-300 truncate block">
+                    {inspectedReceipt.verifierDid}
+                  </span>
                 </div>
                 <div className="md:col-span-2">
                   <span className="text-slate-500 block">Purpose</span>

@@ -1,10 +1,15 @@
-import { VerificationResult, AuditReceipt, VerifierAuditRecord, ProofStateMachineState } from '../../types/protocol';
+import {
+  VerificationResult,
+  AuditReceipt,
+  VerifierAuditRecord,
+  ProofStateMachineState,
+} from '../../types/protocol';
 import { pramanaService } from '../mock/mockPramanaService';
 
 export const proofService = {
   async generateProofWithState(
     requestId: string,
-    onStateChange?: (state: ProofStateMachineState) => void
+    onStateChange?: (state: ProofStateMachineState) => void,
   ): Promise<{
     result: VerificationResult;
     receipt: AuditReceipt;

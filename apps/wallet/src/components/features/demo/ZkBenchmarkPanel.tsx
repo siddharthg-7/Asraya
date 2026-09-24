@@ -4,7 +4,9 @@ import { ProofEngineTier } from '../../../types/protocol';
 
 export const ZkBenchmarkPanel: React.FC = () => {
   const [selectedEngine, setSelectedEngine] = useState<ProofEngineTier>('TIER_A_BBS_PLUS');
-  const [proverProfile, setProverProfile] = useState<'MOBILE_ARM64' | 'DESKTOP_WASM' | 'CLOUD_PROVER'>('DESKTOP_WASM');
+  const [proverProfile, setProverProfile] = useState<
+    'MOBILE_ARM64' | 'DESKTOP_WASM' | 'CLOUD_PROVER'
+  >('DESKTOP_WASM');
   const [isRunningTest, setIsRunningTest] = useState<boolean>(false);
   const [lastTestRun, setLastTestRun] = useState<{
     genTimeMs: number;
@@ -59,7 +61,8 @@ export const ZkBenchmarkPanel: React.FC = () => {
               </span>
             </h3>
             <p className="text-xs text-slate-400">
-              Live performance metrics comparing BBS+ Selective Disclosure Signature Proofs vs Groth16 ZK Circuits
+              Live performance metrics comparing BBS+ Selective Disclosure Signature Proofs vs
+              Groth16 ZK Circuits
             </p>
           </div>
         </div>
@@ -101,7 +104,9 @@ export const ZkBenchmarkPanel: React.FC = () => {
             >
               <div className="font-bold text-xs flex items-center justify-between">
                 <span>BBS+ Signatures</span>
-                {selectedEngine === 'TIER_A_BBS_PLUS' && <CheckCircle2 className="w-4 h-4 text-cyan-400" />}
+                {selectedEngine === 'TIER_A_BBS_PLUS' && (
+                  <CheckCircle2 className="w-4 h-4 text-cyan-400" />
+                )}
               </div>
               <p className="text-[11px] opacity-75 mt-1">Selective Disclosure (Primary)</p>
             </button>
@@ -116,7 +121,9 @@ export const ZkBenchmarkPanel: React.FC = () => {
             >
               <div className="font-bold text-xs flex items-center justify-between">
                 <span>Groth16 SNARK</span>
-                {selectedEngine === 'TIER_B_GROTH16' && <CheckCircle2 className="w-4 h-4 text-purple-400" />}
+                {selectedEngine === 'TIER_B_GROTH16' && (
+                  <CheckCircle2 className="w-4 h-4 text-purple-400" />
+                )}
               </div>
               <p className="text-[11px] opacity-75 mt-1">Zero-Knowledge Fallback</p>
             </button>
@@ -136,7 +143,11 @@ export const ZkBenchmarkPanel: React.FC = () => {
             ].map((p) => (
               <button
                 key={p.id}
-                onClick={() => setProverProfile(p.id as unknown as 'MOBILE_ARM64' | 'DESKTOP_WASM' | 'CLOUD_PROVER')}
+                onClick={() =>
+                  setProverProfile(
+                    p.id as unknown as 'MOBILE_ARM64' | 'DESKTOP_WASM' | 'CLOUD_PROVER',
+                  )
+                }
                 className={`p-2.5 rounded-xl border text-center transition-all ${
                   proverProfile === (p.id as unknown as string)
                     ? 'bg-indigo-950/60 border-indigo-500 text-indigo-200'
@@ -159,7 +170,9 @@ export const ZkBenchmarkPanel: React.FC = () => {
               <Zap className="w-3.5 h-3.5 text-amber-400" />
               <span>Proof Gen Latency</span>
             </span>
-            <div className="text-2xl font-bold font-mono text-slate-100">{lastTestRun.genTimeMs} ms</div>
+            <div className="text-2xl font-bold font-mono text-slate-100">
+              {lastTestRun.genTimeMs} ms
+            </div>
             <span className="text-[10px] text-emerald-400 font-medium">Sub-second generation</span>
           </div>
 
@@ -168,7 +181,9 @@ export const ZkBenchmarkPanel: React.FC = () => {
               <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
               <span>Verification Time</span>
             </span>
-            <div className="text-2xl font-bold font-mono text-cyan-300">{lastTestRun.verifyTimeMs} ms</div>
+            <div className="text-2xl font-bold font-mono text-cyan-300">
+              {lastTestRun.verifyTimeMs} ms
+            </div>
             <span className="text-[10px] text-slate-400">Verifier side computation</span>
           </div>
 
@@ -177,7 +192,9 @@ export const ZkBenchmarkPanel: React.FC = () => {
               <FileCode className="w-3.5 h-3.5 text-indigo-400" />
               <span>Proof Size</span>
             </span>
-            <div className="text-2xl font-bold font-mono text-indigo-300">{lastTestRun.proofSize} Bytes</div>
+            <div className="text-2xl font-bold font-mono text-indigo-300">
+              {lastTestRun.proofSize} Bytes
+            </div>
             <span className="text-[10px] text-slate-400">Minimal QR/Transport payload</span>
           </div>
 
@@ -186,14 +203,18 @@ export const ZkBenchmarkPanel: React.FC = () => {
               <HardDrive className="w-3.5 h-3.5 text-purple-400" />
               <span>Prover Memory</span>
             </span>
-            <div className="text-2xl font-bold font-mono text-purple-300">{lastTestRun.memoryMb} MB</div>
+            <div className="text-2xl font-bold font-mono text-purple-300">
+              {lastTestRun.memoryMb} MB
+            </div>
             <span className="text-[10px] text-slate-400">Peak WASM heap RAM</span>
           </div>
         </div>
       ) : (
         <div className="p-8 bg-slate-950 border border-slate-800 rounded-xl text-center space-y-2">
           <div className="w-8 h-8 border-2 border-purple-500 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="text-xs text-slate-400 font-mono">Executing cryptographic pairings & constraint solver...</p>
+          <p className="text-xs text-slate-400 font-mono">
+            Executing cryptographic pairings & constraint solver...
+          </p>
         </div>
       )}
 
@@ -208,7 +229,9 @@ export const ZkBenchmarkPanel: React.FC = () => {
             <tr>
               <th className="px-4 py-2 font-medium">Metric</th>
               <th className="px-4 py-2 font-medium text-cyan-400">BBS+ Multi-Message Signatures</th>
-              <th className="px-4 py-2 font-medium text-purple-400">Groth16 Zero-Knowledge SNARK</th>
+              <th className="px-4 py-2 font-medium text-purple-400">
+                Groth16 Zero-Knowledge SNARK
+              </th>
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-800/60 text-slate-300">

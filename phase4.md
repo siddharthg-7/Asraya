@@ -14,8 +14,9 @@ VERIFIER.
 At the end of this phase, a judge should be able to understand and experience the complete PRAMĀṆA workflow without needing technical explanation.
 
 ==================================================
+
 1. FIRST
-==================================================
+   \==================================================
 
 Inspect the current implementation.
 
@@ -32,8 +33,7 @@ Do not rewrite stable components.
 
 Reuse the design system.
 
-==================================================
-2. VERIFIER CONSOLE
+================================================== 2. VERIFIER CONSOLE
 ==================================================
 
 Create the verifier experience.
@@ -56,8 +56,7 @@ Recent Receipts
 
 Keep the interface simple.
 
-==================================================
-3. CREATE REQUEST
+================================================== 3. CREATE REQUEST
 ==================================================
 
 Build a request creation UI.
@@ -84,8 +83,7 @@ The UI must clearly show:
 
 "You are asking the citizen to prove these conditions, not to upload the underlying documents."
 
-==================================================
-4. REQUEST PREVIEW
+================================================== 4. REQUEST PREVIEW
 ==================================================
 
 Before sending:
@@ -105,8 +103,7 @@ Primary action:
 
 Send Verification Request
 
-==================================================
-5. VERIFIER REQUEST STATUS
+================================================== 5. VERIFIER REQUEST STATUS
 ==================================================
 
 Show lifecycle:
@@ -121,8 +118,7 @@ VERIFIED
 
 Also support failure states.
 
-==================================================
-6. VERIFICATION RESULT
+================================================== 6. VERIFICATION RESULT
 ==================================================
 
 Create a verifier result page.
@@ -143,8 +139,7 @@ NO RAW CITIZEN ATTRIBUTES RECEIVED
 
 The UI should visually reinforce the privacy architecture.
 
-==================================================
-7. MINIMAL STORAGE VISUALIZATION
+================================================== 7. MINIMAL STORAGE VISUALIZATION
 ==================================================
 
 Create a small "What the verifier stores" panel.
@@ -166,8 +161,7 @@ Not stored:
 
 This is an important educational part of the demo.
 
-==================================================
-8. WIRE / FLOW INSPECTOR
+================================================== 8. WIRE / FLOW INSPECTOR
 ==================================================
 
 Build a visual demo panel showing the protocol flow.
@@ -198,8 +192,7 @@ Do NOT expose actual secrets.
 
 Use synthetic protocol data only.
 
-==================================================
-9. END-TO-END DEMO MODE
+================================================== 9. END-TO-END DEMO MODE
 ==================================================
 
 Create a dedicated:
@@ -242,32 +235,30 @@ Restart Demo
 
 button.
 
-==================================================
-10. TWO-PANEL DEMO
+================================================== 10. TWO-PANEL DEMO
 ==================================================
 
 Where useful, provide a desktop demonstration layout:
 
 ┌──────────────────────┬──────────────────────┐
-│      VERIFIER        │       CITIZEN        │
-│                      │                      │
-│ Create Request       │ Request Received     │
-│        ↓             │        ↓             │
-│ Awaiting Consent     │ Review Request       │
-│        ↓             │        ↓             │
-│ Proof Received       │ Give Consent         │
-│        ↓             │        ↓             │
-│ Verified             │ Proof Generated      │
-│                      │        ↓             │
-│                      │ Receipt              │
+│ VERIFIER │ CITIZEN │
+│ │ │
+│ Create Request │ Request Received │
+│ ↓ │ ↓ │
+│ Awaiting Consent │ Review Request │
+│ ↓ │ ↓ │
+│ Proof Received │ Give Consent │
+│ ↓ │ ↓ │
+│ Verified │ Proof Generated │
+│ │ ↓ │
+│ │ Receipt │
 └──────────────────────┴──────────────────────┘
 
 This can become the strongest live-demo screen.
 
 On mobile, convert this to a sequential flow.
 
-==================================================
-11. DEMO SCRIPT
+================================================== 11. DEMO SCRIPT
 ==================================================
 
 The UI should naturally support this story:
@@ -290,8 +281,7 @@ The verifier does not receive the underlying documents."
 
 The UI should make this story visually obvious.
 
-==================================================
-12. PRODUCT POLISH
+================================================== 12. PRODUCT POLISH
 ==================================================
 
 Now perform a complete UX consistency pass.
@@ -315,8 +305,7 @@ Remove inconsistent components.
 
 Create missing reusable primitives.
 
-==================================================
-13. ACCESSIBILITY
+================================================== 13. ACCESSIBILITY
 ==================================================
 
 Audit:
@@ -330,8 +319,7 @@ Form fields
 Buttons
 Screen-reader semantics
 
-==================================================
-14. PERFORMANCE
+================================================== 14. PERFORMANCE
 ==================================================
 
 Check:
@@ -346,8 +334,7 @@ Do not optimize prematurely.
 
 Fix obvious issues.
 
-==================================================
-15. TECHNICAL HONESTY
+================================================== 15. TECHNICAL HONESTY
 ==================================================
 
 Maintain:
@@ -358,8 +345,7 @@ where backend/cryptographic functionality is simulated.
 
 Never present mock proof as actual cryptographic verification.
 
-==================================================
-16. VALIDATION
+================================================== 16. VALIDATION
 ==================================================
 
 Run:
@@ -377,8 +363,7 @@ desktop
 tablet
 mobile
 
-==================================================
-17. FINAL RESULT
+================================================== 17. FINAL RESULT
 ==================================================
 
 At the end of this phase the frontend must provide:

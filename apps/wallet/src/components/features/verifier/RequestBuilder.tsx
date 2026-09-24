@@ -15,7 +15,9 @@ export interface RequestBuilderProps {
 
 export const RequestBuilder: React.FC<RequestBuilderProps> = ({ onCreateRequest }) => {
   const [verifierName, setVerifierName] = useState<string>('Municipal EV Subsidy Office');
-  const [purpose, setPurpose] = useState<string>('Verification for 2026 Commercial Electric Vehicle Grant');
+  const [purpose, setPurpose] = useState<string>(
+    'Verification for 2026 Commercial Electric Vehicle Grant',
+  );
   const [purposeCode, setPurposeCode] = useState<string>('GOVT_EV_SUBSIDY_2026');
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
@@ -106,7 +108,8 @@ export const RequestBuilder: React.FC<RequestBuilderProps> = ({ onCreateRequest 
             <span>Create Bounded Verification Request</span>
           </h3>
           <p className="text-xs text-slate-400 mt-1">
-            Construct a signed verifier question contract. The citizen will evaluate predicates locally in their wallet.
+            Construct a signed verifier question contract. The citizen will evaluate predicates
+            locally in their wallet.
           </p>
         </div>
 

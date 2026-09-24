@@ -1,6 +1,15 @@
 import React from 'react';
 import { Card } from '../../ui/Card';
-import { Building2, User, Lock, Cpu, CheckCircle2, ArrowRight, ShieldCheck, FileText } from 'lucide-react';
+import {
+  Building2,
+  User,
+  Lock,
+  Cpu,
+  CheckCircle2,
+  ArrowRight,
+  ShieldCheck,
+  FileText,
+} from 'lucide-react';
 
 export interface WireFlowInspectorProps {
   currentStage: 'REQUEST' | 'CONTRACT' | 'WALLET' | 'CONSENT' | 'PROOF' | 'VERIFIER' | 'RECEIPT';
@@ -13,13 +22,48 @@ export const WireFlowInspector: React.FC<WireFlowInspectorProps> = ({ currentSta
     sublabel: string;
     icon: React.ReactNode;
   }> = [
-    { id: 'REQUEST', label: '1. Verifier', sublabel: 'Dispatches Question', icon: <Building2 className="w-4 h-4" /> },
-    { id: 'CONTRACT', label: '2. Contract', sublabel: 'Signed Nonce', icon: <Lock className="w-4 h-4" /> },
-    { id: 'WALLET', label: '3. Citizen Wallet', sublabel: 'Enclave Received', icon: <User className="w-4 h-4" /> },
-    { id: 'CONSENT', label: '4. Consent', sublabel: 'Explicit Approval', icon: <ShieldCheck className="w-4 h-4" /> },
-    { id: 'PROOF', label: '5. ZK Proof', sublabel: 'BBS+ Computation', icon: <Cpu className="w-4 h-4" /> },
-    { id: 'VERIFIER', label: '6. Verifier', sublabel: 'Zero-PII Verdict', icon: <CheckCircle2 className="w-4 h-4" /> },
-    { id: 'RECEIPT', label: '7. Receipt', sublabel: 'Audit Logged', icon: <FileText className="w-4 h-4" /> },
+    {
+      id: 'REQUEST',
+      label: '1. Verifier',
+      sublabel: 'Dispatches Question',
+      icon: <Building2 className="w-4 h-4" />,
+    },
+    {
+      id: 'CONTRACT',
+      label: '2. Contract',
+      sublabel: 'Signed Nonce',
+      icon: <Lock className="w-4 h-4" />,
+    },
+    {
+      id: 'WALLET',
+      label: '3. Citizen Wallet',
+      sublabel: 'Enclave Received',
+      icon: <User className="w-4 h-4" />,
+    },
+    {
+      id: 'CONSENT',
+      label: '4. Consent',
+      sublabel: 'Explicit Approval',
+      icon: <ShieldCheck className="w-4 h-4" />,
+    },
+    {
+      id: 'PROOF',
+      label: '5. ZK Proof',
+      sublabel: 'BBS+ Computation',
+      icon: <Cpu className="w-4 h-4" />,
+    },
+    {
+      id: 'VERIFIER',
+      label: '6. Verifier',
+      sublabel: 'Zero-PII Verdict',
+      icon: <CheckCircle2 className="w-4 h-4" />,
+    },
+    {
+      id: 'RECEIPT',
+      label: '7. Receipt',
+      sublabel: 'Audit Logged',
+      icon: <FileText className="w-4 h-4" />,
+    },
   ];
 
   const getStageIndex = (stage: typeof currentStage) => {
@@ -52,8 +96,8 @@ export const WireFlowInspector: React.FC<WireFlowInspectorProps> = ({ currentSta
                   isCurrent
                     ? 'bg-indigo-950 text-indigo-300 border-indigo-500/60 shadow-lg shadow-indigo-950/50 scale-105'
                     : isDone
-                    ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
-                    : 'bg-slate-950 text-slate-600 border-slate-800'
+                      ? 'bg-slate-900 text-emerald-400 border-emerald-500/30'
+                      : 'bg-slate-950 text-slate-600 border-slate-800'
                 }`}
               >
                 <div className="mb-1">{step.icon}</div>
@@ -64,7 +108,11 @@ export const WireFlowInspector: React.FC<WireFlowInspectorProps> = ({ currentSta
               {idx < steps.length - 1 && (
                 <ArrowRight
                   className={`w-3.5 h-3.5 flex-shrink-0 ${
-                    isDone ? 'text-emerald-400' : isCurrent ? 'text-indigo-400 animate-pulse' : 'text-slate-700'
+                    isDone
+                      ? 'text-emerald-400'
+                      : isCurrent
+                        ? 'text-indigo-400 animate-pulse'
+                        : 'text-slate-700'
                   }`}
                 />
               )}

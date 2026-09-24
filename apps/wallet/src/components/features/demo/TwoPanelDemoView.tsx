@@ -7,17 +7,35 @@ import { WireFlowInspector } from './WireFlowInspector';
 import { MinimalStoragePanel } from '../verifier/MinimalStoragePanel';
 import { ZkBenchmarkPanel } from './ZkBenchmarkPanel';
 import { SecurityAttackSimulator } from './SecurityAttackSimulator';
-import { VerificationRequest, VerificationResult, AuditReceipt, VerifierAuditRecord } from '../../../types/protocol';
+import {
+  VerificationRequest,
+  VerificationResult,
+  AuditReceipt,
+  VerifierAuditRecord,
+} from '../../../types/protocol';
 import { MOCK_PENDING_REQUESTS } from '../../../data/mockData';
 import { pramanaService } from '../../../services/mock/mockPramanaService';
-import { Building2, User, ShieldCheck, CheckCircle2, RotateCcw, ArrowRight, Sparkles, Cpu, Send, Check } from 'lucide-react';
+import {
+  Building2,
+  User,
+  ShieldCheck,
+  CheckCircle2,
+  RotateCcw,
+  ArrowRight,
+  Sparkles,
+  Cpu,
+  Send,
+  Check,
+} from 'lucide-react';
 
 export interface TwoPanelDemoViewProps {
   onResetAll?: () => void;
 }
 
 export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
-  const [wireStage, setWireStage] = useState<'REQUEST' | 'CONTRACT' | 'WALLET' | 'CONSENT' | 'PROOF' | 'VERIFIER' | 'RECEIPT'>('REQUEST');
+  const [wireStage, setWireStage] = useState<
+    'REQUEST' | 'CONTRACT' | 'WALLET' | 'CONSENT' | 'PROOF' | 'VERIFIER' | 'RECEIPT'
+  >('REQUEST');
   const [step, setStep] = useState<number>(1);
 
   const [activeRequest] = useState<VerificationRequest>(MOCK_PENDING_REQUESTS[0]!);
@@ -84,12 +102,18 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
                 </Badge>
               </div>
               <p className="text-xs text-slate-300 mt-0.5">
-                Simulates real-time protocol flow between Verifier Portal (Left) and Citizen Wallet (Right).
+                Simulates real-time protocol flow between Verifier Portal (Left) and Citizen Wallet
+                (Right).
               </p>
             </div>
           </div>
 
-          <Button variant="outline" size="sm" onClick={handleReset} leftIcon={<RotateCcw className="w-4 h-4" />}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleReset}
+            leftIcon={<RotateCcw className="w-4 h-4" />}
+          >
             Restart Demo Script
           </Button>
         </div>
@@ -109,7 +133,9 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">VERIFIER CONSOLE</h3>
-                <p className="text-[11px] font-mono text-slate-400">did:asraya:verifier:municipal-ev-dept</p>
+                <p className="text-[11px] font-mono text-slate-400">
+                  did:asraya:verifier:municipal-ev-dept
+                </p>
               </div>
             </div>
 
@@ -127,7 +153,9 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
                 <p className="text-slate-300">{activeRequest.purpose}</p>
 
                 <div className="pt-2 border-t border-slate-800">
-                  <span className="text-slate-400 block mb-1">Requested Predicates (Bounded Questions):</span>
+                  <span className="text-slate-400 block mb-1">
+                    Requested Predicates (Bounded Questions):
+                  </span>
                   <ul className="space-y-1 text-indigo-300 font-mono">
                     <li>✓ Valid Commercial EV Permit = TRUE</li>
                     <li>✓ Annual Income &lt;= ₹3,00,000</li>
@@ -157,7 +185,9 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
           {(step === 2 || step === 3) && (
             <div className="p-8 text-center bg-slate-950 rounded-xl border border-slate-800 space-y-3">
               <Cpu className="w-10 h-10 text-indigo-400 animate-spin mx-auto" />
-              <h4 className="text-sm font-bold text-white">Awaiting Citizen Enclave Consent & Proof</h4>
+              <h4 className="text-sm font-bold text-white">
+                Awaiting Citizen Enclave Consent & Proof
+              </h4>
               <p className="text-xs text-slate-400 max-w-xs mx-auto">
                 Request dispatched to citizen wallet. Waiting for local BBS+ ZK proof execution.
               </p>
@@ -174,12 +204,17 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono">
-                  {demoPayload.result.predicateResults.map((pr: { predicateId: string; label: string; satisfied: boolean }) => (
-                    <div key={pr.predicateId} className="p-2 bg-slate-950 rounded border border-slate-800">
-                      <span className="text-slate-400 block text-[9px] truncate">{pr.label}</span>
-                      <span className="text-emerald-400 font-bold text-xs">PASSED</span>
-                    </div>
-                  ))}
+                  {demoPayload.result.predicateResults.map(
+                    (pr: { predicateId: string; label: string; satisfied: boolean }) => (
+                      <div
+                        key={pr.predicateId}
+                        className="p-2 bg-slate-950 rounded border border-slate-800"
+                      >
+                        <span className="text-slate-400 block text-[9px] truncate">{pr.label}</span>
+                        <span className="text-emerald-400 font-bold text-xs">PASSED</span>
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
 
@@ -189,8 +224,12 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
                   <span>Verifier DB Audit Record</span>
                   <span className="text-emerald-400">0 RAW ATTRIBUTES STORED</span>
                 </div>
-                <div className="text-slate-400 truncate">Session: {demoPayload.verifierAudit.sessionId}</div>
-                <div className="text-slate-400 truncate">Receipt Hash: {demoPayload.receipt.receiptHash.substring(0, 24)}...</div>
+                <div className="text-slate-400 truncate">
+                  Session: {demoPayload.verifierAudit.sessionId}
+                </div>
+                <div className="text-slate-400 truncate">
+                  Receipt Hash: {demoPayload.receipt.receiptHash.substring(0, 24)}...
+                </div>
               </div>
             </div>
           )}
@@ -205,7 +244,9 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
               </div>
               <div>
                 <h3 className="text-base font-bold text-white">CITIZEN IDENTITY WALLET</h3>
-                <p className="text-[11px] font-mono text-slate-400">did:asraya:citizen:demo-8f92a4</p>
+                <p className="text-[11px] font-mono text-slate-400">
+                  did:asraya:citizen:demo-8f92a4
+                </p>
               </div>
             </div>
 
@@ -217,7 +258,9 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
             <div className="p-8 text-center bg-slate-950 rounded-xl border border-slate-800 text-slate-400 text-xs space-y-2">
               <ShieldCheck className="w-8 h-8 text-slate-600 mx-auto" />
               <p className="font-semibold text-slate-300">Wallet Enclave Idle</p>
-              <p className="text-slate-500">Click "1. Dispatch Bounded Request" on the left panel to trigger incoming request.</p>
+              <p className="text-slate-500">
+                Click "1. Dispatch Bounded Request" on the left panel to trigger incoming request.
+              </p>
             </div>
           )}
 
@@ -226,14 +269,18 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
             <div className="space-y-4 animate-fade-in">
               <div className="p-4 bg-indigo-950/40 border border-indigo-500/40 rounded-xl space-y-3 text-xs">
                 <div className="flex justify-between items-center">
-                  <span className="font-bold text-white text-sm">Incoming Request: {activeRequest.verifierName}</span>
+                  <span className="font-bold text-white text-sm">
+                    Incoming Request: {activeRequest.verifierName}
+                  </span>
                   <Badge variant="amber">Pending Consent</Badge>
                 </div>
 
                 <p className="text-slate-300">{activeRequest.purpose}</p>
 
                 <div className="p-3 bg-slate-950 rounded-lg border border-slate-800 space-y-1">
-                  <span className="font-bold text-slate-300 block mb-1">Bounded Conditions Requested:</span>
+                  <span className="font-bold text-slate-300 block mb-1">
+                    Bounded Conditions Requested:
+                  </span>
                   <ul className="space-y-1 text-slate-300">
                     <li className="flex items-center gap-1.5 text-emerald-300">
                       <Check className="w-3.5 h-3.5" />
@@ -251,7 +298,8 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
                 </div>
 
                 <div className="p-2.5 bg-emerald-950/40 border border-emerald-500/30 rounded-lg text-[11px] text-emerald-300">
-                  "Your underlying documents (Aadhaar, Tax Returns) remain encrypted inside local enclave."
+                  "Your underlying documents (Aadhaar, Tax Returns) remain encrypted inside local
+                  enclave."
                 </div>
               </div>
 
@@ -299,7 +347,12 @@ export const TwoPanelDemoView: React.FC<TwoPanelDemoViewProps> = () => {
               </div>
 
               <div className="flex justify-center pt-2">
-                <Button variant="outline" size="sm" onClick={handleReset} leftIcon={<RotateCcw className="w-3.5 h-3.5" />}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleReset}
+                  leftIcon={<RotateCcw className="w-3.5 h-3.5" />}
+                >
                   Restart Demo Script
                 </Button>
               </div>

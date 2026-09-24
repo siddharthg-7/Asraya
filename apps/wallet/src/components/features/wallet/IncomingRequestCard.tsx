@@ -13,7 +13,10 @@ export interface IncomingRequestCardProps {
 
 export const IncomingRequestCard: React.FC<IncomingRequestCardProps> = ({ request, onReview }) => {
   return (
-    <Card variant="accent" className="border-indigo-500/30 hover:border-indigo-500/50 transition-all">
+    <Card
+      variant="accent"
+      className="border-indigo-500/30 hover:border-indigo-500/50 transition-all"
+    >
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="space-y-2 flex-1">
           <div className="flex flex-wrap items-center gap-2">
@@ -58,7 +61,8 @@ export const IncomingRequestCard: React.FC<IncomingRequestCardProps> = ({ reques
             Review & Consent
           </Button>
           <span className="text-[10px] text-slate-400 text-center font-mono">
-            Expires in {Math.round((new Date(request.expiryTimestamp).getTime() - Date.now()) / 3600000)}h
+            Expires in{' '}
+            {Math.round((new Date(request.expiryTimestamp).getTime() - Date.now()) / 3600000)}h
           </span>
         </div>
       </div>

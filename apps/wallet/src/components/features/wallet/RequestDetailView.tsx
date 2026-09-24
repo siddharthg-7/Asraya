@@ -4,7 +4,16 @@ import { Button } from '../../ui/Button';
 import { Badge } from '../../ui/Badge';
 import { TrustBadge } from '../../ui/TrustBadge';
 import { VerificationRequest, BoundedPredicate } from '../../../types/protocol';
-import { Building2, ShieldCheck, Check, EyeOff, Lock, XCircle, ArrowLeft, Clock } from 'lucide-react';
+import {
+  Building2,
+  ShieldCheck,
+  Check,
+  EyeOff,
+  Lock,
+  XCircle,
+  ArrowLeft,
+  Clock,
+} from 'lucide-react';
 
 export interface RequestDetailViewProps {
   request: VerificationRequest;
@@ -59,12 +68,16 @@ export const RequestDetailView: React.FC<RequestDetailViewProps> = ({
 
       {/* Purpose & Context */}
       <Card variant="default" className="space-y-3">
-        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">Verification Purpose</h3>
+        <h3 className="text-xs font-bold text-slate-400 uppercase tracking-wider">
+          Verification Purpose
+        </h3>
         <p className="text-sm font-semibold text-white bg-slate-950 p-3 rounded-xl border border-slate-800">
           {request.purpose}
         </p>
         <div className="flex justify-between text-xs text-slate-400 pt-1">
-          <span>Purpose Code: <code className="text-indigo-300 font-mono">{request.purposeCode}</code></span>
+          <span>
+            Purpose Code: <code className="text-indigo-300 font-mono">{request.purposeCode}</code>
+          </span>
           <span className="flex items-center gap-1">
             <Clock className="w-3.5 h-3.5 text-amber-400" />
             <span>Expires: {new Date(request.expiryTimestamp).toLocaleString()}</span>
@@ -136,7 +149,8 @@ export const RequestDetailView: React.FC<RequestDetailViewProps> = ({
           "Your underlying documents and raw personal data are NOT being shared."
         </p>
         <p className="text-xs text-slate-400">
-          Evaluated locally inside your non-custodial wallet enclave under Āśraya Protocol invariants.
+          Evaluated locally inside your non-custodial wallet enclave under Āśraya Protocol
+          invariants.
         </p>
       </div>
 

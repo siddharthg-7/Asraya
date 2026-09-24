@@ -20,7 +20,9 @@ export const Card: React.FC<CardProps> = ({
     accent: 'bg-white border border-[#0064e0]/30 shadow-sm',
   };
 
-  const clickableStyles = onClick ? 'cursor-pointer hover:border-[#ced0d4] transition-all duration-150' : '';
+  const clickableStyles = onClick
+    ? 'cursor-pointer hover:border-[#ced0d4] transition-all duration-150'
+    : '';
 
   return (
     <div
@@ -31,4 +33,3 @@ export const Card: React.FC<CardProps> = ({
     </div>
   );
 };
-

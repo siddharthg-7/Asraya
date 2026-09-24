@@ -15,7 +15,8 @@ export const MinimalStoragePanel: React.FC = () => {
       </div>
 
       <p className="text-xs text-slate-300">
-        Āśraya Minimal Storage Model Invariant: Verifiers store strictly audit metadata. ZERO raw citizen attributes are stored.
+        Āśraya Minimal Storage Model Invariant: Verifiers store strictly audit metadata. ZERO raw
+        citizen attributes are stored.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
@@ -28,7 +29,9 @@ export const MinimalStoragePanel: React.FC = () => {
           <ul className="space-y-1.5 text-slate-300 list-none">
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              <span>Verification status verdict (<code className="text-emerald-300">VALID_PROOF</code>)</span>
+              <span>
+                Verification status verdict (<code className="text-emerald-300">VALID_PROOF</code>)
+              </span>
             </li>
             <li className="flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />

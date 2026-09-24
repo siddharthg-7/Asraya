@@ -1,7 +1,16 @@
 import React from 'react';
 import { Button } from '../../ui/Button';
 import { ActiveView } from '../../layout/AppHeader';
-import { User, Building2, ShieldCheck, EyeOff, Lock, KeyRound, AlertTriangle, CheckCircle2 } from 'lucide-react';
+import {
+  User,
+  Building2,
+  ShieldCheck,
+  EyeOff,
+  Lock,
+  KeyRound,
+  AlertTriangle,
+  CheckCircle2,
+} from 'lucide-react';
 
 export interface LandingHeroProps {
   onNavigate: (view: ActiveView) => void;
@@ -19,12 +28,14 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onNavigate }) => {
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-medium text-[#0a1317] tracking-tight leading-tight">
-            Move the Question,<br />
+            Move the Question,
+            <br />
             <span className="text-[#0064e0] font-bold">Not the Data.</span>
           </h1>
 
           <p className="text-base sm:text-xl text-[#444950] leading-relaxed pt-1 max-w-2xl mx-auto">
-            Verify eligibility and claims without requiring citizens to upload or expose their underlying personal documents.
+            Verify eligibility and claims without requiring citizens to upload or expose their
+            underlying personal documents.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
@@ -60,7 +71,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onNavigate }) => {
                 <span>PRIVACY BY DESIGN</span>
               </div>
               <p className="text-xs sm:text-sm text-[#444950] leading-relaxed">
-                Zero unnecessary raw PII. Only the requested bounded claim is verified. Underlying documents remain private.
+                Zero unnecessary raw PII. Only the requested bounded claim is verified. Underlying
+                documents remain private.
               </p>
             </div>
 
@@ -70,7 +82,15 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onNavigate }) => {
                 <span>SELECTIVE DISCLOSURE</span>
               </div>
               <p className="text-xs sm:text-sm text-[#444950] leading-relaxed">
-                Verifiers ask specific boolean questions (<code className="text-xs bg-[#f1f4f7] px-1.5 py-0.5 rounded text-[#0a1317]">Age &gt;= 18</code>, <code className="text-xs bg-[#f1f4f7] px-1.5 py-0.5 rounded text-[#0a1317]">Income &lt;= 3L</code>) instead of ingesting full records.
+                Verifiers ask specific boolean questions (
+                <code className="text-xs bg-[#f1f4f7] px-1.5 py-0.5 rounded text-[#0a1317]">
+                  Age &gt;= 18
+                </code>
+                ,{' '}
+                <code className="text-xs bg-[#f1f4f7] px-1.5 py-0.5 rounded text-[#0a1317]">
+                  Income &lt;= 3L
+                </code>
+                ) instead of ingesting full records.
               </p>
             </div>
 
@@ -80,7 +100,8 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onNavigate }) => {
                 <span>NON-CUSTODIAL CONSENT</span>
               </div>
               <p className="text-xs sm:text-sm text-[#444950] leading-relaxed">
-                Citizen wallet enclave controls cryptographic proof generation. Zero verifier tracking or global identifiers.
+                Citizen wallet enclave controls cryptographic proof generation. Zero verifier
+                tracking or global identifiers.
               </p>
             </div>
           </div>
@@ -94,7 +115,10 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onNavigate }) => {
               <span>The Problem: Data Ingestion Vulnerability</span>
             </div>
             <p className="text-[#444950] text-xs sm:text-sm leading-relaxed">
-              Conventional identity systems force citizens to upload full PDF scans, tax returns, and identity cards. Verifiers store DOBs, full names, and addresses indefinitely — creating massive surveillance honeypots exposed to catastrophic data breaches under DPDP & GDPR.
+              Conventional identity systems force citizens to upload full PDF scans, tax returns,
+              and identity cards. Verifiers store DOBs, full names, and addresses indefinitely —
+              creating massive surveillance honeypots exposed to catastrophic data breaches under
+              DPDP & GDPR.
             </p>
           </div>
 
@@ -104,7 +128,9 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onNavigate }) => {
               <span>The Āśraya Solution: Proof Minimization</span>
             </div>
             <p className="text-[#444950] text-xs sm:text-sm leading-relaxed">
-              Verifiers dispatch signed predicate questions. The citizen's device evaluates certified claims locally and produces a zero-knowledge or selective disclosure proof. The verifier receives a 1-bit boolean answer — zero raw attributes saved.
+              Verifiers dispatch signed predicate questions. The citizen's device evaluates
+              certified claims locally and produces a zero-knowledge or selective disclosure proof.
+              The verifier receives a 1-bit boolean answer — zero raw attributes saved.
             </p>
           </div>
         </div>
@@ -112,4 +138,3 @@ export const LandingHero: React.FC<LandingHeroProps> = ({ onNavigate }) => {
     </section>
   );
 };
-

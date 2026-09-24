@@ -31,7 +31,7 @@ export const downloadAuditReceipt = (receipt: AuditReceipt) => {
   const jsonString = JSON.stringify(exportPayload, null, 2);
   const blob = new Blob([jsonString], { type: 'application/json' });
   const url = URL.createObjectURL(blob);
-  
+
   const link = document.createElement('a');
   link.href = url;
   link.download = `asraya-receipt-${receipt.receiptId}.json`;

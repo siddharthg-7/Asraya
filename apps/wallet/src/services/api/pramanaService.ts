@@ -11,7 +11,7 @@ export interface IPramanaService {
   getPendingRequests(): Promise<VerificationRequest[]>;
   getCredentials(): Promise<CredentialClaim[]>;
   getReceipts(): Promise<AuditReceipt[]>;
-  
+
   createVerificationRequest(params: {
     verifierName: string;
     purpose: string;

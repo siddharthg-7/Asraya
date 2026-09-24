@@ -22,7 +22,9 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({
   receipts,
   onReviewRequest,
 }) => {
-  const [activeTab, setActiveTab] = useState<'requests' | 'credentials' | 'receipts' | 'settings'>('requests');
+  const [activeTab, setActiveTab] = useState<'requests' | 'credentials' | 'receipts' | 'settings'>(
+    'requests',
+  );
 
   const pendingRequests = requests.filter((r) => r.status === 'PENDING');
 
@@ -42,7 +44,9 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({
                   Hardware Enclave Ready
                 </Badge>
               </div>
-              <p className="text-xs font-mono text-slate-400 mt-1">{MOCK_CITIZEN_WALLET.walletDid}</p>
+              <p className="text-xs font-mono text-slate-400 mt-1">
+                {MOCK_CITIZEN_WALLET.walletDid}
+              </p>
             </div>
           </div>
 
@@ -147,7 +151,8 @@ export const WalletDashboard: React.FC<WalletDashboardProps> = ({
             <span>Non-Custodial Enclave Security</span>
           </h3>
           <p className="text-xs text-slate-300">
-            This wallet operates under the Āśraya Non-Custodial Architecture. All cryptographic keys are bound to device Keystore/WebCrypto hardware.
+            This wallet operates under the Āśraya Non-Custodial Architecture. All cryptographic keys
+            are bound to device Keystore/WebCrypto hardware.
           </p>
 
           <div className="space-y-2 text-xs font-mono bg-slate-950 p-4 rounded-xl border border-slate-800">

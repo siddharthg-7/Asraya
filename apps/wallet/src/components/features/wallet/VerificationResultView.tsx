@@ -21,7 +21,10 @@ export const VerificationResultView: React.FC<VerificationResultViewProps> = ({
   return (
     <div className="max-w-2xl mx-auto my-8 animate-fade-in p-4 space-y-6">
       {/* Result Status Banner */}
-      <Card variant="bordered" className="border-emerald-500/40 bg-emerald-950/20 p-8 text-center space-y-4">
+      <Card
+        variant="bordered"
+        className="border-emerald-500/40 bg-emerald-950/20 p-8 text-center space-y-4"
+      >
         <div className="w-16 h-16 rounded-2xl bg-emerald-950 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto shadow-xl">
           <CheckCircle2 className="w-9 h-9 text-emerald-400" />
         </div>
@@ -41,7 +44,8 @@ export const VerificationResultView: React.FC<VerificationResultViewProps> = ({
         </div>
 
         <p className="text-xs text-slate-300 max-w-md mx-auto leading-relaxed">
-          Zero-knowledge predicate evaluation completed successfully. Only boolean mathematical answers were shared with the verifier.
+          Zero-knowledge predicate evaluation completed successfully. Only boolean mathematical
+          answers were shared with the verifier.
         </p>
       </Card>
 
@@ -58,20 +62,22 @@ export const VerificationResultView: React.FC<VerificationResultViewProps> = ({
         </div>
 
         <div className="space-y-2">
-          {result.predicateResults.map((pr: { predicateId: string; label: string; satisfied: boolean }) => (
-            <div
-              key={pr.predicateId}
-              className="p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between text-xs"
-            >
-              <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
-                <span className="font-semibold text-white">{pr.label}</span>
+          {result.predicateResults.map(
+            (pr: { predicateId: string; label: string; satisfied: boolean }) => (
+              <div
+                key={pr.predicateId}
+                className="p-3 bg-slate-950 border border-slate-800 rounded-xl flex items-center justify-between text-xs"
+              >
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                  <span className="font-semibold text-white">{pr.label}</span>
+                </div>
+                <span className="px-2.5 py-1 rounded font-mono text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30">
+                  VERIFIED (TRUE)
+                </span>
               </div>
-              <span className="px-2.5 py-1 rounded font-mono text-xs font-bold bg-emerald-950 text-emerald-300 border border-emerald-500/30">
-                VERIFIED (TRUE)
-              </span>
-            </div>
-          ))}
+            ),
+          )}
         </div>
       </Card>
 
@@ -102,7 +108,9 @@ export const VerificationResultView: React.FC<VerificationResultViewProps> = ({
             </div>
             <div>
               <span className="text-slate-500 block text-[10px]">Timestamp</span>
-              <span className="text-slate-300">{new Date(receipt.timestamp).toLocaleTimeString()}</span>
+              <span className="text-slate-300">
+                {new Date(receipt.timestamp).toLocaleTimeString()}
+              </span>
             </div>
           </div>
 

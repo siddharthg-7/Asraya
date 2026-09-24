@@ -38,16 +38,21 @@ const getViewFromPath = (path: string): ActiveView => {
 
 const getPathFromView = (view: ActiveView): string => {
   switch (view) {
-    case 'wallet': return '/citizen-wallet';
-    case 'verifier': return '/verifier-console';
-    case 'demo': return '/live-judge-demo';
-    case 'landing': default: return '/';
+    case 'wallet':
+      return '/citizen-wallet';
+    case 'verifier':
+      return '/verifier-console';
+    case 'demo':
+      return '/live-judge-demo';
+    case 'landing':
+    default:
+      return '/';
   }
 };
 
 export const App: React.FC = () => {
   const [activeView, setActiveViewInternal] = useState<ActiveView>(() =>
-    getViewFromPath(window.location.pathname)
+    getViewFromPath(window.location.pathname),
   );
 
   const [requests, setRequests] = useState<VerificationRequest[]>([]);
@@ -149,9 +154,24 @@ export const App: React.FC = () => {
           isSuccess: true,
           tierUsed: 'TIER_A_BBS_PLUS',
           predicateResults: [
-            { predicateId: 'pred-1', field: 'isValidPermit', label: 'Valid Commercial EV Permit', satisfied: true },
-            { predicateId: 'pred-2', field: 'annualIncomeInINR', label: 'Annual Income Threshold', satisfied: true },
-            { predicateId: 'pred-3', field: 'state', label: 'Eligible State Jurisdiction', satisfied: true },
+            {
+              predicateId: 'pred-1',
+              field: 'isValidPermit',
+              label: 'Valid Commercial EV Permit',
+              satisfied: true,
+            },
+            {
+              predicateId: 'pred-2',
+              field: 'annualIncomeInINR',
+              label: 'Annual Income Threshold',
+              satisfied: true,
+            },
+            {
+              predicateId: 'pred-3',
+              field: 'state',
+              label: 'Eligible State Jurisdiction',
+              satisfied: true,
+            },
           ],
           nonce: '0x8f9a2b7c4d1e902a3f5b7c8d9e0f1a2b',
           receiptHash: matchedReceipt?.receiptHash || '0xa49f7e82b1c3d5e6f7a8b9c0d1e2...',

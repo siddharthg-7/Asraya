@@ -21,7 +21,8 @@ export const CredentialsList: React.FC<CredentialsListProps> = ({ credentials })
           <div>
             <h4 className="text-sm font-bold text-white">Local Non-Custodial Storage</h4>
             <p className="text-xs text-slate-400">
-              Credentials are encrypted with WebCrypto device keys. Raw data NEVER leaves this wallet.
+              Credentials are encrypted with WebCrypto device keys. Raw data NEVER leaves this
+              wallet.
             </p>
           </div>
         </div>
@@ -53,7 +54,9 @@ export const CredentialsList: React.FC<CredentialsListProps> = ({ credentials })
               </div>
               {Object.entries(cred.attributes).map(([key, val]) => (
                 <div key={key} className="flex justify-between items-center text-slate-300">
-                  <span className="text-slate-400 capitalize">{key.replace(/([A-Z])/g, ' $1')}:</span>
+                  <span className="text-slate-400 capitalize">
+                    {key.replace(/([A-Z])/g, ' $1')}:
+                  </span>
                   <span className="font-mono text-slate-100 font-medium">
                     {typeof val === 'boolean' ? (val ? 'TRUE' : 'FALSE') : String(val)}
                   </span>

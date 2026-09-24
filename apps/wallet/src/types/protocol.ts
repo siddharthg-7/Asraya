@@ -5,7 +5,8 @@
 
 export type ProofEngineTier = 'TIER_A_BBS_PLUS' | 'TIER_B_GROTH16';
 
-export type RequestStatus = 'PENDING' | 'CONSENTED' | 'GENERATING_PROOF' | 'VERIFIED' | 'REJECTED' | 'EXPIRED';
+export type RequestStatus =
+  'PENDING' | 'CONSENTED' | 'GENERATING_PROOF' | 'VERIFIED' | 'REJECTED' | 'EXPIRED';
 
 export type ProofStateMachineState =
   | 'REQUEST_RECEIVED'
