@@ -1,0 +1,66 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Environment & secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+*.pfx
+*.keystore
+*.secret
+credentials.json
+
+# Local databases & storage
+*.sqlite
+*.sqlite3
+*.db
+*.db-journal
+*.db-wal
+
+# Zero-Knowledge & cryptographic compilation artifacts
+circuits/build/
+circuits/*.r1cs
+circuits/*.sym
+circuits/*.zkey
+circuits/*.wtns
+*.ptau
+*.proof
+*.witness
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Test coverage & artifacts
+coverage/
+.nyc_output/
+*.lcov
+
+# OS & Editor artifacts
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+*.sublime-project
+*.sublime-workspace
+.husky/_
+
+# Scratch & temporary agent artifacts
+scratch/
+tmp/
+temp/

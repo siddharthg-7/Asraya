@@ -1,0 +1,19 @@
+{
+  "name": "@pramana/adapters",
+  "version": "0.1.0",
+  "description": "Legacy system isolation adapters and canonical attribute mapping bridges",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@pramana/shared": "workspace:*",
+    "@pramana/schemas": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}

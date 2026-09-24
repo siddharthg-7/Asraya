@@ -1,0 +1,20 @@
+{
+  "name": "@pramana/proofs",
+  "version": "0.1.0",
+  "description": "Proof generation and verification orchestration for Tier A (BBS) and Tier B (Groth16)",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -b",
+    "typecheck": "tsc --noEmit",
+    "clean": "rimraf dist *.tsbuildinfo"
+  },
+  "dependencies": {
+    "@pramana/shared": "workspace:*",
+    "@pramana/protocol": "workspace:*",
+    "@pramana/crypto": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.3"
+  }
+}
