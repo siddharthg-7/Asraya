@@ -124,10 +124,10 @@ export function validateMinimalClaimSet(
     );
   }
 
-  if (rec['isMockUnsigned'] !== true) {
+  if (rec['isMockUnsigned'] !== undefined && typeof rec['isMockUnsigned'] !== 'boolean') {
     throw new PramanaError(
       ERROR_CODES.CLAIM_GENERATION_FAILED,
-      'MinimalClaimSet must have isMockUnsigned: true in Phase 3',
+      'MinimalClaimSet isMockUnsigned must be a boolean if specified',
     );
   }
 
@@ -137,6 +137,6 @@ export function validateMinimalClaimSet(
     subjectId: rec['subjectId'] as string,
     claims: rec['claims'] as Readonly<Record<string, string | number | boolean>>,
     issuedAt: typeof rec['issuedAt'] === 'string' ? rec['issuedAt'] : new Date().toISOString(),
-    isMockUnsigned: true,
+    isMockUnsigned: typeof rec['isMockUnsigned'] === 'boolean' ? rec['isMockUnsigned'] : undefined,
   };
 }

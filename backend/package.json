@@ -15,8 +15,11 @@
   },
   "dependencies": {
     "@fastify/cors": "^10.0.2",
+    "@iden3/binfileutils": "^0.0.12",
+    "@mattrglobal/bbs-signatures": "^2.0.0",
     "@pramana/shared": "workspace:*",
-    "fastify": "^5.2.1"
+    "fastify": "^5.2.1",
+    "snarkjs": "^0.7.6"
   },
   "devDependencies": {
     "@types/node": "^22.13.0",

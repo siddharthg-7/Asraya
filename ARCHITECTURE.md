@@ -71,12 +71,13 @@ Minimal Verifier Storage (Audit Receipt & Verdict ONLY — ZERO Raw PII)
 
 ### Tier 2: Cryptographic Minimization Engine
 
-- **Packages**: `@pramana/crypto`, `@pramana/proofs`, `circuits/`
+- **Packages / Subsystems**: `backend/src/crypto/`, `backend/src/proofs/`, `circuits/`, `docs/architecture/cryptography.md`
 - **Responsibilities**:
-  - **Tier A (Default)**: BBS Multi-Message Signatures over BLS12-381. Enables selective disclosure of attributes and integer threshold proofs via bit-commitment without revealing the actual values.
-  - **Tier B (Fallback)**: Groth16 zero-knowledge SNARK circuits for non-linear, multi-variable arithmetic predicates.
-  - **Holder Binding**: Cryptographically links the proof to a holder-controlled key, ensuring credentials cannot be stolen and replayed by third parties.
-  - **Context-Scoped Nullifiers**: Generates unlinkable pseudonyms for duplicate detection within a single campaign without enabling global tracking.
+  - **Tier A (Default)**: BBS Multi-Message Signatures over BLS12-381 G2 (`@mattrglobal/bbs-signatures`). Enables selective disclosure of authorized claims and randomized blinding of predicate-only attributes without revealing underlying data.
+  - **Tier B (Fallback)**: Groth16 zero-knowledge SNARK circuits over BN128 (`snarkjs`) for arbitrary bounded numeric inequality predicates (`numeric_predicate.circom`), bound to session nonces.
+  - **Holder Binding**: Cryptographically links the presentation to a holder-controlled secret and session challenge nonce, ensuring credentials cannot be stolen or forwarded.
+  - **Context-Scoped Nullifiers & Unlinkable Pseudonyms**: HMAC-SHA256 derived identifiers ensuring Verifier A and Verifier B cannot correlate presentations, while preventing duplicate claims within a campaign.
+- **Reference**: Detailed specification and benchmark measurements in [cryptography.md](file:///c:/project-self-1/pramana/docs/architecture/cryptography.md).
 
 ### Tier 3: Non-Custodial Consent & Channel Protocol
 

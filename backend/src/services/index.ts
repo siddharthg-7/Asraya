@@ -8,3 +8,5 @@ export * from './registry.service.js';
 export * from './mediation.service.js';
 export * from './policy.service.js';
 export * from './consent.service.js';
+export * from './wallet.service.js';
+export * from './cryptographic-verifier.service.js';

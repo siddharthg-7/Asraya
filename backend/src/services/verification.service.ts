@@ -41,12 +41,18 @@ export class VerificationService {
     }
 
     // 4. Registry verification: fetch issuer public key
-    const issuerRecord = await trustRegistry.getIssuer('did:pramana:issuer:gov-civil-dept');
+    const issuerDid = envelope.issuerDid || 'did:pramana:issuer:gov-civil-dept';
+    const issuerRecord = await trustRegistry.getIssuer(issuerDid);
     const issuerKey = issuerRecord?.publicKeys.bbsG2PublicKey ?? 'default_key';
 
     // 5. Cryptographic proof verification
-    // Note: In Phase 1, proofOrchestrator will throw NOT_IMPLEMENTED for real math, or reject invalid mock
-    await proofOrchestrator.verify(envelope, issuerKey);
+    const verified = await proofOrchestrator.verify(envelope, issuerKey);
+    if (!verified) {
+      throw new PramanaError(
+        ERROR_CODES.PROOF_VERIFICATION_FAILED,
+        'Cryptographic proof verification failed: invalid signature, proof, or parameter binding',
+      );
+    }
 
     // 6. Record context-scoped nullifier
     await verifierStorage.recordNullifier(

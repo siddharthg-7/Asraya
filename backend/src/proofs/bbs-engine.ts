@@ -1,11 +1,12 @@
 /**
  * @fileoverview Tier A: BBS Multi-Message Proof Engine Abstraction
- * Pramāṇa Protocol - Phase 1 Foundation
+ * Pramāṇa Protocol - Phase 5 Cryptographic Core
  *
  * Current Architecture: BBS is the primary proof path.
  */
 
 import { BBSProofPayload, ERROR_CODES, PramanaError } from '@pramana/shared';
+import { bbsService } from '../crypto/bbs-service.js';
 
 export interface IBBSEngine {
   verifyPresentation(
@@ -13,6 +14,16 @@ export interface IBBSEngine {
     issuerPublicKey: string,
     nonce: string,
   ): Promise<boolean>;
+}
+
+export class BBSEngine implements IBBSEngine {
+  async verifyPresentation(
+    payload: BBSProofPayload,
+    issuerPublicKey: string,
+    nonce: string,
+  ): Promise<boolean> {
+    return bbsService.verifyPresentation(payload, issuerPublicKey, nonce);
+  }
 }
 
 export class UninitializedBBSEngine implements IBBSEngine {
@@ -27,3 +38,5 @@ export class UninitializedBBSEngine implements IBBSEngine {
     );
   }
 }
+
+export const bbsEngine = new BBSEngine();

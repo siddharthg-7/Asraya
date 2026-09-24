@@ -6,7 +6,11 @@
 import { ProofEnvelope, ProofTier, VerificationRequest } from '../types/proofs.js';
 import { ERROR_CODES, PramanaError } from '../constants/errors.js';
 
-const VALID_PROOF_TIERS: readonly ProofTier[] = ['TIER_A_BBS', 'TIER_B_GROTH16'];
+const VALID_PROOF_TIERS: readonly ProofTier[] = [
+  'TIER_A_BBS',
+  'TIER_B_GROTH16',
+  'TIER_HYBRID_BBS_GROTH16',
+];
 
 export function validateProofEnvelope(input: unknown): ProofEnvelope {
   if (typeof input !== 'object' || input === null) {
@@ -92,6 +96,10 @@ export function validateProofEnvelope(input: unknown): ProofEnvelope {
     holderBindingSignature: record['holderBindingSignature'],
     createdAt:
       typeof record['createdAt'] === 'string' ? record['createdAt'] : new Date().toISOString(),
+    issuerDid: typeof record['issuerDid'] === 'string' ? record['issuerDid'] : undefined,
+    schemaId: typeof record['schemaId'] === 'string' ? record['schemaId'] : undefined,
+    protocolVersion:
+      typeof record['protocolVersion'] === 'string' ? record['protocolVersion'] : undefined,
   };
 }
 

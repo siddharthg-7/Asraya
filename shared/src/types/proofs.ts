@@ -7,7 +7,7 @@
  * - Groth16 zk-SNARKs = Fallback Proof Tier (Tier B)
  */
 
-export type ProofTier = 'TIER_A_BBS' | 'TIER_B_GROTH16';
+export type ProofTier = 'TIER_A_BBS' | 'TIER_B_GROTH16' | 'TIER_HYBRID_BBS_GROTH16';
 
 export interface BBSProofPayload {
   readonly tier: 'TIER_A_BBS';
@@ -32,6 +32,12 @@ export interface Groth16ProofPayload {
   };
 }
 
+export interface CompositeProofPayload {
+  readonly tier: 'TIER_HYBRID_BBS_GROTH16';
+  readonly bbs: BBSProofPayload;
+  readonly groth16: Groth16ProofPayload;
+}
+
 export interface NullifierRecord {
   readonly contextId: string;
   readonly nullifierHash: string; // H(holder_secret, contextId, epoch)
@@ -43,10 +49,13 @@ export interface ProofEnvelope {
   readonly verifierDid: string;
   readonly nonce: string;
   readonly proofTier: ProofTier;
-  readonly payload: BBSProofPayload | Groth16ProofPayload;
+  readonly payload: BBSProofPayload | Groth16ProofPayload | CompositeProofPayload;
   readonly nullifier: NullifierRecord;
   readonly holderBindingSignature: string;
   readonly createdAt: string; // ISO 8601 UTC
+  readonly issuerDid?: string | undefined;
+  readonly schemaId?: string | undefined;
+  readonly protocolVersion?: string | undefined;
 }
 
 /**

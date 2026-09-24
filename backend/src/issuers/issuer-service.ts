@@ -198,6 +198,34 @@ export class MockIssuerService {
 
     return validateMinimalClaimSet(claimSet);
   }
+
+  /**
+   * Issues a cryptographically signed VerifiableCredential using the issuer's BBS+ private key.
+   */
+  async issueVerifiableCredential(
+    issuerDid: string,
+    subjectId: string,
+    requestedAttributeIds: readonly string[],
+    sources: SourceDataContainer,
+    holderBinding?: import('@pramana/shared').HolderBindingCommitment,
+  ): Promise<import('@pramana/shared').VerifiableCredential> {
+    const { bbsService } = await import('../crypto/bbs-service.js');
+    const { createHash } = await import('node:crypto');
+
+    const claimSet = await this.createMinimalClaimSet(
+      issuerDid,
+      subjectId,
+      requestedAttributeIds,
+      sources,
+    );
+
+    const binding: import('@pramana/shared').HolderBindingCommitment = holderBinding ?? {
+      holderPublicKeyHash: createHash('sha256').update(`subject:${subjectId}`).digest('hex'),
+      algorithm: 'BLS12-381-G1',
+    };
+
+    return bbsService.signCredential(issuerDid, claimSet, binding);
+  }
 }
 
 export const mockIssuerService = new MockIssuerService();

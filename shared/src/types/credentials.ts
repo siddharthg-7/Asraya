@@ -50,5 +50,5 @@ export interface MinimalClaimSet {
   readonly subjectId: string; // Synthetic citizen identifier
   readonly claims: Readonly<Record<string, string | number | boolean>>;
   readonly issuedAt: string; // ISO 8601 UTC
-  readonly isMockUnsigned: true; // Explicitly marked as mock/unsigned in Phase 3
+  readonly isMockUnsigned?: boolean | undefined; // Marked true in Phase 3 mock mode, false/omitted for real credentials
 }

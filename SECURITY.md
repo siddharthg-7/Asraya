@@ -28,19 +28,22 @@ The system is architected to protect the following critical assets:
 
 ### Tier A: BBS Signatures (Default Proof Tier)
 
-- **Standard**: IETF CFRG BBS Signature Suite over BLS12-381.
+- **Standard**: IETF CFRG BBS Signature Suite over BLS12-381 G2 (`@mattrglobal/bbs-signatures@2.0.0`).
 - **Properties**:
   - Multi-message selective disclosure without revealing undisclosed messages.
   - Native proof of possession and holder blinding.
-  - Predicate evaluation via bit-decomposition commitments.
+  - Blinding of predicate-only attributes during presentation generation.
   - Unlinkable randomized zero-knowledge presentations.
+  - Verification against authentic BLS12-381 G2 public keys registered in Trust Registry.
 
 ### Tier B: Groth16 zk-SNARKs (Fallback Proof Tier)
 
-- **Standard**: Circom constraint systems verified with Groth16 over BN254 / BLS12-381.
+- **Standard**: Circom 2.0+ constraint systems verified with Groth16 over BN128 (`snarkjs@0.7.6`).
 - **Constraints**:
-  - Used ONLY for complex multi-attribute non-linear predicates that cannot be efficiently evaluated via BBS bit-decomposition.
-  - Proving keys and verification keys must be cryptographically tied to trusted registry checkpoints.
+  - Used for bounded numeric inequalities (`trailing_12m_earnings LTE 300000`).
+  - Strict witness isolation: private financial earnings NEVER serialized into payload or logs.
+  - Proving and verification cryptographically bound to session challenge nonce scalar.
+  - Documented in detail in `docs/architecture/cryptography.md`.
 
 ---
 
